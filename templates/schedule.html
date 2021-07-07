@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- websocket -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <title>InJoy</title>
 </head>
+
 <style>
     .display{
         display: none;
@@ -151,6 +154,7 @@
         align-items: center; */
         padding:5px 0px 5px 0px;
         border-bottom: 1px solid #ffcab1;
+        z-index:9
     
     }
     .headTitle{
@@ -209,7 +213,8 @@
         height: 35px;
         display: flex;
         align-items: center;
-        height: 32px;
+        position: relative;
+        margin-bottom: 20px;
     }
     .center{
         display: flex;
@@ -217,16 +222,17 @@
     .tableName{
         font-size: 18px;
         margin-right: 10px;
-        background: #ffcab1;
+        background: #ECEAE9;
         border-radius: 5px;
         padding: 2px 5px 2px 5px;
         height: 32px;
         display: flex;
         align-items: center;
+        border: 0px;
     }
     .tableDate{
         margin-right: 10px;
-        background: #ffcab1;
+        background: #ECEAE9;
         border-radius: 5px;
         padding: 2px 5px 2px 5px;
         height: 32px;
@@ -234,7 +240,7 @@
         align-items: center;
     }
     .tableMember{
-        background: #ffcab1;
+        background: #ECEAE9;
         margin-right: 10px;
         border-radius: 5px;
         padding: 2px 5px 2px 5px;
@@ -243,7 +249,7 @@
         align-items: center;
     }
     .inviteBtn{
-        background: #ffcab1;
+        background: #ECEAE9;
         border-radius: 5px;
         padding: 2px 5px 2px 5px;
         height: 32px;
@@ -253,7 +259,17 @@
 
     }
     .saveBtn{
-        background: #ffcab1;
+        background: #ECEAE9;
+        border-radius: 5px;
+        padding: 2px 5px 2px 5px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+    }
+    .deleteGroupBtn{
+        position: absolute;
+        right: 0px;
+        background: #ECEAE9;
         border-radius: 5px;
         padding: 2px 5px 2px 5px;
         height: 32px;
@@ -280,21 +296,13 @@
         display: flex;
         justify-content: center;
         text-align: center;
-    }
-    .chatroom{
-        width: 200px;
-        border-radius: 5px;
-        border: 1px solid black;
-        margin-left: auto;
-        right: 0px;
-        top: 0px;
-        height: 100px;
+        border: 0px;
     }
     .centerLeft{
         display: flex;
+        flex-wrap: wrap;
     }
     .card{
-        margin-top: 10px;
         margin-left: 10px;
     }
     .cardTop{
@@ -305,6 +313,8 @@
         flex-direction: column;
         background:#ffd8c6;
         border-radius: 5px;
+        justify-content: center;
+        margin-bottom: 10px;
 
     }
     .deleteBtn{
@@ -313,7 +323,7 @@
         right: 5px;
         width: 30px;
         height: 30px;
-        background: red;
+        background: url(/static/icon_delete.png);
     }
 
     .scheduleId{
@@ -354,6 +364,105 @@
         line-height: 47px;
 
     }
+    .chatroom{
+        width: 300px;
+        border-radius: 5px;
+        border: 1px solid black;
+        margin-left: auto;
+        right: 0px;
+        top: 0px;
+        height: 90vh;
+    }
+
+    .chatroomTop{
+        height: 45px;
+        line-height: 45px;
+        font-size: 20px;
+        background-color: #ffd8c6;
+        text-align: center;
+
+    }
+    .chatroomBody{
+        height: 80vh;
+        
+    }
+    .chatroomBottom{
+        height: 20px;
+        display: flex;
+        padding: 10px 0px 0px 5px;
+    }
+    .chatCloud{
+        width: 60%;
+        margin: 10px 0px 0px 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+        padding: 5px 0px 5px 5px;
+    }
+    .chatName{
+        height: 12px;
+        line-height: 12px;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    .chatContent{
+        /* height: 12px;
+        line-height: 12px; */
+        width: 100%;
+    }
+
+    .chatroomText{
+        width: 240px;
+        height: 20px;
+        line-height: 20px;
+        border-radius: 5px;
+    }
+    .chatroomSend{
+        width: 40px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        margin-left: 5px;
+        margin-right: 5px;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: #ffd8c6;
+
+    }
+    footer{
+    background: #757575;
+    height: 104px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 40px;
+    }
+    .foot{
+        line-height: 13px;
+        margin: auto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 13px;
+        color: #FFFFFF;
+    } 
+
+
+
+
+    /* <div class="chatroom">
+            <div class="chatroomTop" >聊天室</div>
+            <div class="chatroomBody">
+                <div class="chatCloud">
+                    <div>member</div>
+                    <div>你過的好嗎</div>
+                </div>
+            </div>
+                  <div class="chatCloud">
+                    <div class="chatName">member</div>
+                    <div class="chatContent">你過的好嗎</div>
+                </div>
+        </div> */
+
 
 </style>
 <body onload="checkMember()">
@@ -419,7 +528,6 @@
         </div> 
     </div>
 
-
     <div class="sign display" id="Member">
         <div class="signHead"></div>
         <div class="signImg mymouse"  onclick="closeWindow()"></div>
@@ -456,6 +564,19 @@
         </div> 
     </div>
 
+    <div class="sign display" id="deleteGroup">
+        <div class="signHead"></div>
+        <div class="signImg mymouse"  onclick="closeWindow()"></div>
+        <div class="signTitle">確認是否刪除此看板</div>
+        <div class="remindText">刪除後行程資料將無法復原</div>
+        <div class="signButton mymouse" onclick="deleteGroup()">
+            <div class="signButtonText " >是</div>
+        </div> 
+        <div class="signButton mymouse" onclick="closeWindow()">
+            <div class="signButtonText " >否</div>
+        </div> 
+    </div>
+
 
 
     <div class="topBar">
@@ -464,6 +585,7 @@
         <div class="tableMember mymouse" onclick="memberWindow()">群組成員</div>
         <div class="inviteBtn mymouse"  onclick="invite()">邀請成員</div>
         <div class="saveBtn mymouse" onclick="saveSchedule()">儲存行程</div>
+        <div class="deleteGroupBtn mymouse" onclick="deleteGroupWindow()">刪除看板</div>
     </div>
     <div class="center">
         <div class="centerLeft" id="centerLeft">
@@ -482,15 +604,49 @@
             </div> -->
         </div>
         <div class="chatroom">
-
+            <div class="chatroomTop" >聊天室</div>
+            <div class="chatroomBody" id="chatroomBody">
+                <!-- <div class="chatCloud">
+                    <div class="chatName">member</div>
+                    <div class="chatContent">你過的好嗎</div>
+                </div> -->
+            </div>
+            <div class="chatroomBottom">
+                <input class="chatroomText" id="chatroomText" type="text">
+                <div class="chatroomSend mymouse" onclick="sendmessage()">送出</div>
+            </div>
         </div>
 
     </div>
 
-    <footer></footer>
+    <footer>
+        <div class="foot">
+            COPYRIGHT © 2021 InJoy   
+        </div>
+    </footer>
 </body>
 </html>
 <script type="text/javascript">
+function deleteGroup(){
+    let groupId=location.pathname.split("/")[2]
+    let deleteGroupreq=new XMLHttpRequest();
+    deleteGroupreq.open("delete","/api/addgroup");
+    deleteGroupreq.onload=function(){
+        Result=JSON.parse(this.responseText);
+        alert(Result["message"])
+        window.location.href='/'
+    }
+    deleteGroupreq.send(JSON.stringify({"groupId":groupId}))
+}
+
+function deleteGroupWindow(){
+    let deleteGroup=document.getElementById("deleteGroup")
+    let windowBackground=document.getElementById("windowBackground")
+    deleteGroup.classList.remove("display")
+    windowBackground.classList.remove("display")
+}
+
+
 function deleteMember(){
     let groupId=location.pathname.split("/")[2]
     let deleteMemberreq=new XMLHttpRequest();
@@ -515,7 +671,7 @@ function deleteMemberWindow(thisMember){
 }
 
 function deleteSchedule(){
-    let scheduleId=deleteObj.childNodes[0].childNodes[3].textContent
+    let scheduleId=deleteObj.childNodes[0].childNodes[0].textContent
     let groupId=location.pathname.split("/")[2]
     let deletecardreq=new XMLHttpRequest();
     deletecardreq.open("delete","/api/addcard");
@@ -534,8 +690,6 @@ function deleteScheduleWindow(myObj){
     deleteCard.classList.remove("display")
     // myObj.parentNode.parentNode.innerHTML=""
 }
-
-
 
 function addMember(){
     let inviteEmail=document.getElementById("inviteEmail").value
@@ -608,7 +762,7 @@ function saveSchedule(){
     }
     sendData["scheduleId"]=scheduleId
     let savedatareq=new XMLHttpRequest();
-    savedatareq.open("post","/api/"+location.pathname);
+    savedatareq.open("post","/api"+location.pathname);
     savedatareq.onload=function(){
         saveResult=JSON.parse(this.responseText);
         alert(saveResult["message"])
@@ -621,10 +775,32 @@ let getdatareq=new XMLHttpRequest();
 getdatareq.open("get","/api/"+location.pathname);
 getdatareq.onload=function(){
     groupData=JSON.parse(this.responseText);
+    console.log(groupData)
     if(groupData["data"]=="無權限觀看此看板"){
         alert("無權限觀看此看板")
         window.location.href='/'
     }else{
+        chatroomDataLen=groupData["data"]["chatroomData"].length
+        let x=0
+        while(x<chatroomDataLen){
+            // create div
+            let chatroomBody=document.getElementById("chatroomBody")
+            let CloudDiv=document.createElement("div")
+            let NameDiv=document.createElement("div")
+            let ContentDiv=document.createElement("div")
+            // add class
+            CloudDiv.classList.add("chatCloud")
+            NameDiv.classList.add("chatName")
+            ContentDiv.classList.add("chatContent")
+            // add textcontent
+            NameDiv.textContent=groupData["data"]["chatroomData"][x][0]
+            ContentDiv.textContent=groupData["data"]["chatroomData"][x][1]
+            // append html
+            chatroomBody.appendChild(CloudDiv)
+            CloudDiv.appendChild(NameDiv)
+            CloudDiv.appendChild(ContentDiv)
+            x+=1
+        }
         // member html
         let Member=document.getElementById("Member")
         let memberLen=0
@@ -676,7 +852,6 @@ getdatareq.onload=function(){
             // dom 文字更改
             Placediv.textContent=cardPlace
             Datediv.textContent=cardDate
-            Weatherdiv.textContent="晴朗炎熱"
             iddiv.textContent=scheduleId
 
             // add class
@@ -684,7 +859,6 @@ getdatareq.onload=function(){
             Topdiv.classList.add("cardTop")
             Placediv.classList.add("tripPlace")
             Datediv.classList.add("tripDate")
-            Weatherdiv.classList.add("tripWeather")
             Bodydiv.classList.add("cardBody")
             iddiv.classList.add("scheduleId")
             deleteBtn.classList.add("deleteBtn")
@@ -693,11 +867,16 @@ getdatareq.onload=function(){
             centerLeft.appendChild(div)
             div.appendChild(Topdiv)
             div.appendChild(Bodydiv)
+            Topdiv.appendChild(iddiv)
             Topdiv.appendChild(Placediv)
             Topdiv.appendChild(Datediv)
-            Topdiv.appendChild(Weatherdiv)
-            Topdiv.appendChild(iddiv)
+            if(groupData["data"][scheduleId]["weather"]!=null){
+                Weatherdiv.textContent=groupData["data"][scheduleId]["weather"]
+                Weatherdiv.classList.add("tripWeather")
+                Topdiv.appendChild(Weatherdiv)
+            }
             Topdiv.appendChild(deleteBtn)
+
             // 行程
             let n=0
             while(n<=23){
@@ -923,7 +1102,6 @@ function addCard(){
  
 }
 
-
 function addCardWindow(){
     let addCard=document.getElementById("addCard")
     let windowBackground=document.getElementById("windowBackground")
@@ -953,8 +1131,6 @@ function checkMember(){
         }
         reqMember.send()
 }
-
-
 
 //登出
 function signOut(){
@@ -1074,6 +1250,7 @@ function closeWindow(){
     let Member=document.getElementById("Member")
     let deleteCard=document.getElementById("deleteCard")
     let deleteMember=document.getElementById("deleteMember")
+    let deleteGroup=document.getElementById("deleteGroup")
     windowBackground.classList.add("display");
     signUp.classList.add("display");
     signIn.classList.add("display");
@@ -1082,10 +1259,44 @@ function closeWindow(){
     Member.classList.add("display")
     deleteCard.classList.add("display")
     deleteMember.classList.add("display")
+    deleteGroup.classList.add("display")
     // 隱藏錯誤訊息
     signupspaceError.classList.add("display");
     signupemailError.classList.add("display");
 }
+
+
+let socket = io();
+function sendmessage(){
+    let chatroomText=document.getElementById("chatroomText").value
+    let socket = io.connect();
+    socket.on('connect',function(){
+        let groupId=location.pathname.split("/")[2]
+        socket.emit('my send',{"content":chatroomText,"groupId":groupId})
+        document.getElementById("chatroomText").value=null
+    })
+}
+
+
+
+socket.on("my change",function(msg){
+    console.log(msg)
+    // create div
+    let chatroomBody=document.getElementById("chatroomBody")
+    let CloudDiv=document.createElement("div")
+    let NameDiv=document.createElement("div")
+    let ContentDiv=document.createElement("div")
+    // add class
+    CloudDiv.classList.add("chatCloud")
+    NameDiv.classList.add("chatName")
+    ContentDiv.classList.add("chatContent")
+    // add textcontent
+    NameDiv.textContent=msg["member"]
+    ContentDiv.textContent=msg["content"]
+    // append html
+    chatroomBody.appendChild(CloudDiv)
+    CloudDiv.appendChild(NameDiv)
+    CloudDiv.appendChild(ContentDiv)
+})
+
 </script>
-
-
