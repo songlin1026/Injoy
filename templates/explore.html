@@ -8,6 +8,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="490117535363-rm2l4rj93njjkb4ijpcv1ffhapqlkgu9.apps.googleusercontent.com">
+
     <!-- FB -->
     <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
     <title>PlanJoy</title>
@@ -61,12 +62,6 @@
         left: 50%;
         transform:translate(-50%, 0);
         border-radius: 5px;
-    }
-    .errorText {
-        color: red;
-        text-align: center;
-        width: 270px;
-        margin: 5px auto;
     }
 
     .signHead{
@@ -199,7 +194,6 @@
         font-size: 14px;
         background:#E4DDD4 ;
     }
-
     footer{
         background: #757575;
         height: 104px;
@@ -207,7 +201,7 @@
         align-items: center;
         width: 100%;
         margin-top: 40px;
-        position: absolute;
+        /* position: absolute; */
         bottom: 0px;
     }
     .foot{
@@ -224,7 +218,7 @@
     /* index */
     .hero{
         width: 100vw;
-        height: 60vh;
+        height: 30vh;
         padding-top: 45px;
     }
     .heroTitle{
@@ -244,41 +238,134 @@
     }
     .btnPar{
         display: flex;
-        width: 70%;
-        margin: auto;
+        width: 100%;
         justify-content: center;
         align-items: center;
     }
     .sign_btn{
         height: 100px;
         line-height:100px;
-        background-color: #B25A42;
-        color: #E5E1DD;
-        font-weight: 700;
+        background-color: #f6f6f6;
+        border: #F58652 solid 1px;
         border-radius: 5px;
         font-size: 24px;
         padding: 0px 10px 0px 10px;
         margin: 0px 5px 0px 5px;
-        width: 15%;
-        text-align: center;
-    }
-    .new_btn{
-        height: 80px;
-        width: 80px;
-        line-height: 80px;
-        background-color: #B25A42;
-        color: #E5E1DD;
-        font-weight: 700;
-        border-radius: 80px;
-        font-size: 70px;
-        text-align: center;
-        margin: 0px 5px 0px 5px;
+
     }
     .scheduleId{
         font-size: 12px;
         width: 20px;
         height: 20px;
         display: none;
+    }
+    .g-signin2{
+        width: 270px;
+        height: 27px;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin: 5px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .explorebar{
+        display: flex;
+        margin: 5px auto;
+        justify-content: center;
+    }
+    .exploreButton{
+        width: 100px;
+        height: 52px;
+        background: #B25A42;
+        color: #E5E1DD;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 20px;
+        line-height: 52px;
+        font-weight: 700;
+    }
+    .exploreInput{
+        width: 280px;
+        border: 1px #CCCCCC solid;
+        color: #666666;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 400;
+        border-radius: 5px;
+        text-align: left;
+    }
+    .resultBar{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* height: 400px; */
+        width: 90vw;
+        margin: 20px auto 5px auto;
+        border-radius: 10px;
+    }
+    .resultCard{
+        width: 25%;
+        background-color: #BEB1A1;
+        /* padding: 5px 5px 10px 5px; */
+        margin: 10px;
+        border-radius: 5px;
+        padding-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+
+    }
+    .resultImg{
+        width: 100%;
+        height: 55%;
+        border-radius: 5px 5px 0px 0px;
+    }
+    .resultTitle{
+        /* width: 100%; */
+        font-size: 22px;
+        margin: 5px;
+        color: #824533;
+        height: 120px;
+        overflow: hidden;
+        font-weight: 700;
+    }
+    .resultContent{
+        /* width: 100%; */
+        font-size: 15px;
+        color: #666666;
+        margin: 5px;
+        overflow: hidden;
+    }
+    a {
+        text-decoration:none;
+    }
+    .pageBar{
+        margin: 5px auto;
+        display: flex;
+        justify-content: center;
+    }
+    .pageButton{
+        width: 100px;
+        height: 47px;
+        background: #BEB1A1;
+        color: #666666;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 20px;
+        line-height: 47px;
+        margin: 5px;
+        font-weight: 700;  
+    }
+    .placeLoad{
+        width: 100vw;
+        height: 40vh;
+        background: url(/static/load.gif);
+        background-color: #E4DDD4;
+        background-position: center;
+        background-size: 10%;
+        background-repeat: no-repeat;
+        position: fixed;
+        z-index: 8;
     }
     .ham{
         width: 35px;
@@ -290,7 +377,14 @@
         cursor: pointer;
     }
 
+
     @media screen and (max-width: 600px) {
+        .ham{
+            display: flex;
+            position: absolute;
+            right: 10px;
+            
+        } 
         .btnPar {
             width: 300px;
             flex-direction: column;
@@ -305,17 +399,11 @@
             width: 320px;
         }
         .hero {
-            width: 80vw;
+            width: 320px;
             height: 30vh;
             padding-top: 45px;
             margin: 0px auto;
-        }     
-        .ham{
-            display: flex;
-            position: absolute;
-            right: 10px;
-            
-        }  
+        }       
         .flex{
             display: flex;
             
@@ -346,24 +434,33 @@
             height: 30px;
             line-height: 30px;
         }
-
+        .resultCard{
+            width: 100%;
+        }
+        .exploreInput{
+            width: 220px;
+        }
+        .exploreButton{
+            width: 80px;
+        }
     }
 
 
-
 </style>
-<body onload="checkMember()">
+<!--  -->
+<body onload="checkMember()" >
     <header>  
-            <div class="headTitle mymouse" onclick="location.href='/'">PlanJoy</div>
-            <div class="ham" onclick="hamclick()"></div>
-            <div class="headRight" id="headRight">
-                <div class="trip mymouse" onclick="location.href='/explore'">探索行程</div>
-                <div class="trip mymouse" onclick="location.href='/'">個人行程</div>
-                <div id="signInbtn" class="signInbtn mymouse" onclick="signinWindow()">會員登入</div>
-                <div id="signOutbtn" class=" signInbtn mymouse display" onclick="signOut()">會員登出</div>
-            </div>
+        <div class="headTitle mymouse" onclick="location.href='/'">PlanJoy</div>
+        <div class="ham" onclick="hamclick()"></div>
+        <div class="headRight" id="headRight">
+            <div class="trip mymouse" onclick="location.href='/explore'">探索行程</div>
+            <div class="trip mymouse" onclick="location.href='/'">個人行程</div>
+            <div id="signInbtn" class="signInbtn mymouse" onclick="signinWindow()">會員登入</div>
+            <div id="signOutbtn" class=" signInbtn mymouse display" onclick="signOut()">會員登出</div>
+        </div>
     </header>
-    <div id="windowBackground" class="display" onclick="closeWindow()"></div>
+    <div id="windowBackground" class="display" onclick="closeWindow()">
+    </div>
     <div id="loading" class="loading"></div>
     <div  class="sign display" id="signIn">
         <div class="signHead"></div>
@@ -372,7 +469,6 @@
         <input class="signinInput" type="email" id="signinEmail" placeholder="輸入電子信箱">
         <input class="signinInput" type="password" id="signinPassword" placeholder="輸入密碼">
         <div class="errorText display" id="signinError" >帳號或密碼輸入錯誤</div>
-
         <div class="signButton mymouse" onclick="signIn()" >
             <div class="signButtonText" >登入帳戶</div>
         </div>
@@ -392,9 +488,6 @@
             data-logo_alignment="left"
             onclick="onSignIn(googleUser)">
         </div>
-
-
-        <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
         <div class="signinFoot mymouse"  onclick="signupWindow()">還沒有帳戶？點此註冊</div>   
     </div>
     
@@ -414,17 +507,48 @@
     </div>
 
 
-    <div>
+    <div id="center">
         <div class="hero">
             <div class="heroContent">Plan your trip in Joy</div>
         </div>
-        <div class="btnPar" id="btnPar">
-            <div class="sign_btn mymouse" id="signIn_btn" onclick="signinWindow()">登入</div>
-            <div class="sign_btn mymouse" id="signUp_btn" onclick="signupWindow()">註冊</div>
-            <div class="new_btn mymouse display" id="newGroup" onclick="addGroup()">+</div>
+
+        <div class="explorebar">
+            <!-- <input class="exploreInput" type="text" id="search" placeholder="輸入縣市名稱"><div class="exploreButton mymouse" onclick="explore()">搜尋</div> -->
+            <select class="exploreInput" type="text" id="search" placeholder="輸入縣市名稱" >
+                <option value="taipei">台北</option>
+                <option value="taoyuan">桃園</option>
+                <option value="taichung">台中</option>
+                <option value="nantou">南投</option>
+                <option value="chiayi">嘉義</option>
+                <option value="tainan">台南</option>
+                <option value="kaohsiung">高雄</option>
+                <option value="taiwan-penghu">澎湖</option>
+                <option value="yilan">宜蘭</option>
+                <option value="hualien">花蓮</option>
+                <option value="taitung">台東</option>
+            </select>
+            <div class="exploreButton mymouse" onclick="explore()">搜尋</div>
 
         </div>
+        <div class="placeLoad display" id="placeLoad"></div>
+        <div class="resultBar" id="resultBar">  
+            <!-- <a class="resultCard" href="https://blog.kkday.com/58358/asia-taiwan-taipei-childrens-amusement-park">       
+                <img class="resultImg" src="https://i0.wp.com/blog.kkday.com/wp-content/uploads/asia-taiwan-taipei-youngsongshu-massage_P1600550-拷貝.jpg?fit=900%2C600&quality=80&strip=all&ssl=1">
+                <div class="resultTitle">2021陽明山海芋季｜台北陽明山竹子湖海芋季開跑！交通方式、賞花期、採海芋體驗，期間限定的白色浪漫等你攻陷</div>
+                <div class="resultContent">又到了陽明山採海芋的季節，緊接在櫻花季後，今年陽明山竹子湖的海芋季與繡球花季也正 …</div>
+            </a>
+            <a class="resultCard" href="https://blog.kkday.com/58358/asia-taiwan-taipei-childrens-amusement-park">       
+                <img class="resultImg" src="https://i0.wp.com/blog.kkday.com/wp-content/uploads/asia-taiwan-taipei-youngsongshu-massage_P1600550-拷貝.jpg?fit=900%2C600&quality=80&strip=all&ssl=1">
+                <div class="resultTitle">2021陽明山海芋季｜台北陽明山竹子湖海芋季開跑！交通方式、賞花期、採海芋體驗，期間限定的白色浪漫等你攻陷</div>
+                <div class="resultContent">又到了陽明山採海芋的季節，緊接在櫻花季後，今年陽明山竹子湖的海芋季與繡球花季也正 …</div>
+            </a> -->
+
+        </div>
+        <div class="pageBar " >
+            <div class="pageButton mymouse" id="pageButton" onclick="morePage()">載入更多</div>
+        </div>
     </div>
+
     <footer>
         <div class="foot">
             COPYRIGHT © 2021 PlanJoy   
@@ -433,7 +557,6 @@
 </body>
 </html>
 <script type="text/javascript">
-
 function hamclick(){
     let headRight=document.getElementById("headRight")
     // headRight.style.display="flex"
@@ -443,117 +566,136 @@ function hamclick(){
         headRight.style.display = "flex";
     }
 }
-
-function handleCredentialResponse(response) {
-    let sub=response.credential
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/tokensignin');
-    xhr.onload = function() {
-        let googledata=JSON.parse(this.responseText);
-        if(googledata["google"]=="GET"){
-            console.log(googledata["google"])
+function morePage(){
+    page+=1
+    explorerq.open("post","/explore")
+    explorerq.onload=function(){
+        let exploreData=JSON.parse(this.responseText);
+        if (exploreData["page"]==null){
+            document.getElementById("pageButton").classList.add("display")
         }else{
-            window.location.reload()
+            document.getElementById("pageButton").classList.remove("display")
         }
-    };
-    xhr.send(JSON.stringify({"idtoken":sub}));
-}
+        let resultBar=document.getElementById("resultBar")
+        let n=0
+        while(n<exploreData["data"].length){
+            let card=document.createElement("a")
+            let Img=document.createElement("img")
+            let Title=document.createElement("div")
+            let Content=document.createElement("div")
+            card.classList.add("resultCard")
+            Img.classList.add("resultImg")
+            Title.classList.add("resultTitle")
+            Content.classList.add("resultContent")
 
-// // FB登入
-// function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
-//     console.log('statusChangeCallback');
-//     console.log(response);              // The current login status of the person.
-//     FB.api(
-//         "/"+response["authResponse"]["userID"]+"/",
-//         function (response) {
-//         if (response && !response.error) {
-//             console.log("api")
-//             console.log(response)
-//             /* handle the result */
-//         }
-//         }
-//     );
-//     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
-//         let signInbtn=document.getElementById("signInbtn")
-//         let signOutbtn=document.getElementById("signOutbtn")
-//         signInbtn.classList.add("display")
-//         signOutbtn.classList.remove("display")
-//         testAPI();  
+            card.setAttribute("href",exploreData["data"][n][3])
+            card.setAttribute("target","_blank")
+            Img.setAttribute("src",exploreData["data"][n][2])
+            Title.textContent=exploreData["data"][n][0]
+            Content.textContent=exploreData["data"][n][1]
 
-//     }
-// }
-// function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
-//     console.log('Welcome!  Fetching your information.... ');
-//     FB.api('/me', function(response) {
-//       console.log('Successful login for: ' + response.name);
-//       console.log(response)
-//     });
-// }
+            resultBar.appendChild(card)
+            card.appendChild(Img)
+            card.appendChild(Title)
+            card.appendChild(Content)
+            n+=1
 
-
-// function checkLoginState() {
-//   FB.getLoginStatus(function(response) {
-//     statusChangeCallback(response);
-//   });
-// }
-
-
-// window.fbAsyncInit = function() {
-//     FB.init({
-//       appId      : '511036803449655',
-//       cookie     : true,
-//       xfbml      : true,
-//       version    : 'v11.0'
-//     });
-      
-//     FB.AppEvents.logPageView();   
-      
-//   };
-
-//   (function(d, s, id){
-//      var js, fjs = d.getElementsByTagName(s)[0];
-//      if (d.getElementById(id)) {return;}
-//      js = d.createElement(s); js.id = id;
-//      js.src = "https://connect.facebook.net/en_US/sdk.js";
-//      fjs.parentNode.insertBefore(js, fjs);
-//    }(document, 'script', 'facebook-jssdk'));
-
-// // 檢查是否用FB登入
-// FB.getLoginStatus(function(response) {
-//     statusChangeCallback(response);
-// });
-
-
-function onSignIn(googleUser) {
-    var profile = googleUser.getBasicProfile();
-    var id_token = googleUser.getAuthResponse().id_token;
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/tokensignin');
-    xhr.onload = function() {
-        let googledata=JSON.parse(this.responseText);
-        if(googledata["google"]=="GET"){
-            console.log(googledata["google"])
-        }else{
-            window.location.reload()
         }
-    };
-    xhr.send(JSON.stringify({"idtoken":id_token,"CLIENT_ID":profile.getId(),"email":profile.getEmail(),"name":profile.getName()}));
-}
-
-
-function choseGroup(thisCard){
-    let groupId=thisCard.childNodes[1].textContent
-    document.location.href="/schedule/"+groupId
-}
-function addGroup(){
-    let addGroupreq=new XMLHttpRequest();
-    addGroupreq.open("post","/api/addgroup")
-    addGroupreq.onload=function(){
-        let groupdata=JSON.parse(this.responseText);
-        document.location.href="/schedule/"+groupdata["groupId"]
     }
-    addGroupreq.send()
+    explorerq.send(JSON.stringify({"city":city,"page":page}))
 }
+let explorerq= new XMLHttpRequest()
+page=1
+city="taipei"
+explorerq.open("post","/explore")
+explorerq.onload=function(){
+    let exploreData=JSON.parse(this.responseText);
+    if (exploreData["page"]==null){
+        document.getElementById("pageButton").classList.add("display")
+    }else{
+        document.getElementById("pageButton").classList.remove("display")
+    }
+    let resultBar=document.getElementById("resultBar")
+    let n=0
+    while(n<exploreData["data"].length){
+        let card=document.createElement("a")
+        let Img=document.createElement("img")
+        let Title=document.createElement("div")
+        let Content=document.createElement("div")
+        card.classList.add("resultCard")
+        Img.classList.add("resultImg")
+        Title.classList.add("resultTitle")
+        Content.classList.add("resultContent")
+
+        card.setAttribute("href",exploreData["data"][n][3])
+        card.setAttribute("target","_blank")
+        Img.setAttribute("src",exploreData["data"][n][2])
+        Title.textContent=exploreData["data"][n][0]
+        Content.textContent=exploreData["data"][n][1]
+
+        resultBar.appendChild(card)
+        card.appendChild(Img)
+        card.appendChild(Title)
+        card.appendChild(Content)
+        n+=1
+
+    }
+}
+explorerq.send(JSON.stringify({"city":city,"page":page}))
+function explore(){
+    city=document.getElementById("search").value
+    let resultBar=document.getElementById("resultBar")
+    resultBar.innerHTML=""
+    let placeLoad=document.getElementById("placeLoad")
+    placeLoad.classList.remove("display")
+    let explorerq= new XMLHttpRequest()
+    page=1
+    explorerq.open("post","/explore")
+    explorerq.onload=function(){
+        let exploreData=JSON.parse(this.responseText);
+        if (exploreData["page"]==null){
+            document.getElementById("pageButton").classList.add("display")
+        }else{
+            document.getElementById("pageButton").classList.remove("display")
+        }
+        let n=0
+        while(n<exploreData["data"].length){
+            let card=document.createElement("a")
+            let Img=document.createElement("img")
+            let Title=document.createElement("div")
+            let Content=document.createElement("div")
+            card.classList.add("resultCard")
+            Img.classList.add("resultImg")
+            Title.classList.add("resultTitle")
+            Content.classList.add("resultContent")
+
+            card.setAttribute("href",exploreData["data"][n][3])
+            card.setAttribute("target","_blank")
+            Img.setAttribute("src",exploreData["data"][n][2])
+            Title.textContent=exploreData["data"][n][0]
+            Content.textContent=exploreData["data"][n][1]
+
+            resultBar.appendChild(card)
+            card.appendChild(Img)
+            card.appendChild(Title)
+            card.appendChild(Content)
+            n+=1
+
+        }
+        placeLoad.classList.add("display")
+    }
+    explorerq.send(JSON.stringify({"city":city,"page":page}))
+}
+
+
+
+
+
+
+
+
+
+
 
 
 //確認使用者登入狀態 
@@ -562,43 +704,11 @@ function checkMember(){
         reqMember.open("get","/api/user")
         reqMember.onload=function(){
             let getdata=JSON.parse(this.responseText);
-            console.log(getdata)
             let signInbtn=document.getElementById("signInbtn")
             let signOutbtn=document.getElementById("signOutbtn")
-            let newGroup=document.getElementById("newGroup")
-            let signIn_btn=document.getElementById("signIn_btn")
-            let signUp_btn=document.getElementById("signUp_btn")
             if(getdata["data"]!=null){
                 signInbtn.classList.add("display")
                 signOutbtn.classList.remove("display")
-                signIn_btn.classList.add("display")
-                signUp_btn.classList.add("display")
-                newGroup.classList.remove("display")
-                if(getdata["data"]["groupId"]!=null){
-                    let groupLen=getdata["data"]["groupId"].length
-                    let n=0
-                    while(n<groupLen){
-                        let div=document.createElement("div")
-                        let btnPar=document.getElementById("btnPar")
-                        let iddiv=document.createElement("div")
-                        div.setAttribute("onclick","choseGroup(this)")
-                        iddiv.classList.add("scheduleId")
-                        div.classList.add("sign_btn")
-                        div.classList.add("mymouse")
-                        div.textContent=getdata["data"]["groupData"][getdata["data"]["groupId"][n]]
-                        iddiv.textContent=getdata["data"]["groupId"][n]
-                        btnPar.appendChild(div)
-                        div.appendChild(iddiv)
-                        n+=1
-                    }
-
-
- 
-                }
-  
-            }else{
-                // signInbtn.classList.remove("display")
-                // signOutbtn.classList.add("display")
             }
             let loading=document.getElementById("loading")
             loading.classList.add("display") 
@@ -621,14 +731,6 @@ function signOut(){
         
     }
     reqsignOut.send()
-    // google 登出
-    // var auth2 = gapi.auth2.getAuthInstance();
-    // auth2.signOut().then(function () {
-    // console.log('User signed out.');
-    // });
-
-
-
 }    
 // 登入
 function signIn(){
@@ -646,7 +748,6 @@ function signIn(){
                 window.location.reload()
             }else{
                 signinError.classList.remove("display")
-                console.log(signindata)
             }
             
         }
@@ -738,3 +839,4 @@ function closeWindow(){
     signupemailError.classList.add("display");
 }
 </script>
+<!-- <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNcfVaqd1lZVOYcKnriraVgBc0lv-o8eU&libraries=places&callback=initMap"></script> -->
