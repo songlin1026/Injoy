@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- websocket -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  -->
+    <!-- google signIn -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="490117535363-rm2l4rj93njjkb4ijpcv1ffhapqlkgu9.apps.googleusercontent.com">
+    <title>PlanJoy</title>
+</head>
+
+<style>
+.display{
+        display: none;
+    }
+    .mymouse{
+        cursor: pointer;
+    }
+    .loading{
+        width: 100vw;
+        height: 100vh;
+        background: url(/static/load.gif);
+        background-color: #E5E1DD;
+        background-position: center;
+        background-size: 10%;
+        background-repeat: no-repeat;
+        position: fixed;
+        z-index: 8;
+    }
+    #windowBackground{
+        width: 100vw;
+        background-color: black;
+        opacity: 0.25;
+        height: 100vh;
+        position: fixed;
+        z-index: 100;
+        margin: 0px 0px 0px 0px ;
+    }
+    .g_id_signin{
+        width: 270px;
+        height: 27px;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin: 5px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .sign{
+        /* display: none; */
+        position: fixed;
+        z-index: 100;
+        background-color: #E5E1DD;
+        width: 340px;
+        /* height: 275px; */
+        height: auto;
+        top: 80px;
+        left: 50%;
+        transform:translate(-50%, 0);
+        border-radius: 5px;
+    }
+
+    .signHead{
+        border-radius: 5px 5px 0px 0px;
+        width: 100%;
+        height: 10px;
+        background: linear-gradient(270deg, #CAAD8D 0%, #824533 100%);
+    }
+
+
+    .signImg{
+        background: url(/static/icon_close.png);
+        height: 16px;
+        width: 16px;
+        position: fixed;
+        top: 27px;
+        right: 17px;
+    }
+    .signinInput{
+        width: 280px;
+        height: 17px;
+        border: 1px #CCCCCC solid;
+        color: #666666;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 400;
+        border-radius: 5px;
+        margin: 5px 15px;
+        text-align: left;
+    }
+
+    .signinFoot{
+        width: 310px;
+        height: 22px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #666666;
+        margin: 5px 15px 15px 15px;
+        text-align: center;
+    }
+
+    /* signup */
+
+    .signTitle{
+        margin: 0px auto 0px auto;
+        width: 310px;
+        height: 27px;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 24px;
+        color: #666666;
+        margin: 15px auto 10px auto;
+        text-align: center;
+
+    }
+
+    .signupInput{
+        width: 280px;
+        height: 17px;
+        border: 1px #CCCCCC solid;
+        color: #666666;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 400;
+        border-radius: 5px;
+        margin: 5px 15px;
+        text-align: left;
+    }
+    .signButton{
+        width: 270px;
+        height: 27px;
+        background: #824533;
+        border-radius: 5px;
+        padding: 10px 20px;
+        margin: 5px auto;
+    }
+    .signButtonText{
+        width: 270px;
+        height: 27px;
+        text-align: center;
+        font-size: 19px;
+        font-weight: 700;
+        color: #ffffff;
+    }
+    .signupFoot{
+        width: 310px;
+        height: 22px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #666666;
+        margin: 5px 15px 15px 15px;
+        text-align: center;
+    }
+
+    header{
+        background: #E4DDD4;
+        height: 35px;
+        width: 100vw;
+        position: fixed;
+        display: flex;
+        padding:5px 0px 5px 0px;
+        border-bottom: 1px solid #B25A42;
+        z-index: 9;
+    
+    }
+    .headTitle{
+        color: #824533 ;
+        font-weight:700;
+        font-size: 30px;
+        margin:0px auto 0px auto;
+        display: flex;
+        justify-content: center;
+    }
+    .headRight{
+        color: #824533;
+        display: flex;
+        margin: 8px 10px 0px 0px ;
+        font-size:16px;
+        position: absolute;
+        right: 50px;
+        font-weight: 700;
+    }
+    .trip{
+        margin-right: 10px;
+    }
+
+    body{
+        margin: 0px;
+        font-size: 14px;
+        background:#E4DDD4 ;
+    }
+
+
+    .deleteMemberImg{
+        background: url(/static/icon_close.png);
+        background-size: 100%;
+        height: 10px;
+        width: 10px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+    .groupMember{
+        position: relative;
+        width: 280px;
+        border: 1px #CCCCCC solid;
+        color: #666666;
+        padding: 15px;
+        font-weight: 400;
+        border-radius: 5px;
+        margin: 5px 15px 10px 15px;
+        text-align: left;
+        background: #ECEAE9;
+    }
+
+    .memberName{
+        margin-bottom: 5px;
+        font-size: 18px;
+    }
+    .memberEmail{
+        font-size: 16px;
+    }
+
+
+
+
+    /* schedule */
+    .topBar{
+        padding: 65px 0px 0px 10px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .center{
+        display: flex;
+        height: 80vh;
+    }
+    .tableName{
+        font-size: 18px;
+        margin-right: 10px;
+        background: #B25A42;
+        color: #E5E1DD;
+        font-weight: 700;
+        border-radius: 5px;
+        padding: 2px 5px 2px 5px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        border: 0px;
+    }
+    .tableDate{
+        margin-right: 10px;
+        background: #B25A42;
+        color: #E5E1DD;
+        font-weight: 700;
+        border-radius: 5px;
+        padding: 2px 5px 2px 5px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+    }
+    .tableMember{
+        background: #B25A42;
+        color: #E5E1DD;
+        font-weight: 700;
+        margin-right: 10px;
+        border-radius: 5px;
+        padding: 2px 5px 2px 5px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+    }
+    .inviteBtn{
+        background: #B25A42;
+        color: #E5E1DD;
+        font-weight: 700;
+        border-radius: 5px;
+        padding: 2px 5px 2px 5px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        width: 56px;
+        justify-content: center;
+
+    }
+    .moreBtn{
+        background: #B25A42;
+        color: #E5E1DD;
+        font-weight: 700;
+        border-radius: 5px;
+        padding: 2px 5px 2px 5px;
+        height: 32px;
+        display: none;
+        align-items: center;
+        margin-right: 10px;
+        width: 56px;
+        justify-content: center;
+    }
+    .saveBtn{
+        background: #B25A42;
+        color: #E5E1DD;
+        font-weight: 700;
+        border-radius: 5px;
+        padding: 2px 5px 2px 5px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        width: 56px;
+        justify-content: center;
+    }
+    .deleteGroupBtn{
+        position: absolute;
+        right: 50px;
+        background: #B25A42;
+        color: #E5E1DD;
+        font-weight: 700;
+        border-radius: 5px;
+        padding: 2px 5px 2px 5px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+    }
+    .chatroomBtn{
+        position: absolute;
+        right: 0px;
+        background: #B25A42;
+        color: #E5E1DD;
+        font-weight: 700;
+        border-radius: 5px;
+        padding: 2px 5px 2px 5px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+    }
+
+    .schedule{
+        display: flex;
+        align-items: center;
+        border:1px solid #E4DDD4;
+        border-radius: 5px;
+        /* width: 400px; */
+        height: 50px;
+        background-color: #ECEAE9;
+
+    }
+    .scheduleTime{
+        width: 150px;
+        margin-left: 10px;
+    }
+    .scheduleContent{
+        width: 100%;
+        height: 93%;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        border: 0px;
+        background-color: #ECEAE9;
+    }
+    .centerLeft{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .card{
+        margin-left: 10px;
+    }
+    .cardTop{
+        position: relative;
+        width: 100%;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        background: #ECEAE9;
+        border-top: 5px solid #B25A42;
+        /* border-bottom: 5px solid #B25A42; */
+        /* border-right: 1px solid #B25A42;
+        border-left: 1px solid #B25A42; */
+        border-radius: 5px 5px 0px 0px;
+        justify-content: center;
+    }
+    .cardBody{
+        margin-top: 5px;
+    }
+    .deleteBtn{
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 30px;
+        height: 30px;
+        background: url(/static/icon_delete.png);
+    }
+
+    .scheduleId{
+        font-size: 12px;
+        width: 20px;
+        height: 20px;
+        display: none;
+    }
+    .tripDate{
+        font-size: 20px;
+        width: 100%;
+        top:15px;
+        display: flex;
+        justify-content: center;
+    }
+    .tripPlace{
+        font-size: 30px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .tripWeather{
+        font-size: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        top:30px
+    }
+    .remindText{
+        width: 280px;
+        height: 47px;
+        color: #666666;
+        font-size: 16px;
+        font-weight: 400;
+        border-radius: 5px;
+        margin: 5px auto;
+        text-align: center;
+        line-height: 47px;
+
+    }
+    .chatroom{
+        width: 300px;
+        border-radius: 5px;
+        border: 1px solid black;
+        margin-left: auto;
+        margin-right: 50px;
+        /* right: 0px;
+        top: 0px; */
+        height: 80vh;
+        background: #ECEAE9;
+    }
+    .chatroomImg{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: url(/static/icon_close.png);
+        background-repeat: no-repeat;
+        background-position: center;
+
+    }
+
+    .chatroomTop{
+        height: 45px;
+        line-height: 45px;
+        font-size: 20px;
+        background-color: #B25A42;
+        text-align: center;
+        color: #E5E1DD;
+        display: flex;
+        justify-content: center;
+        position: relative;
+
+    }
+    .chatroomBody{
+        height: 68vh;
+        background: #ECEAE9;
+        padding-top: 10px;
+        overflow: scroll;
+
+        
+    }
+    .chatroomBottom{
+        height: 20px;
+        display: flex;
+        padding: 0px 0px 0px 5px;
+    }
+    .chatCloud{
+        width: 60%;
+        margin: 10px 0px 0px 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+        padding: 5px 0px 5px 5px;
+    }
+    .chatName{
+        height: 12px;
+        line-height: 12px;
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    .chatContent{
+        /* height: 12px;
+        line-height: 12px; */
+        width: 100%;
+    }
+
+    .chatroomText{
+        width: 80%;
+        height: 20px;
+        line-height: 20px;
+        border-radius: 5px;
+        margin-top: 10px;
+    }
+    .chatroomSend{
+        width: 40px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        margin-left: 5px;
+        margin-right: 5px;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: #B25A42;
+        margin-top: 10px;
+
+    }
+    footer{
+        background: #757575;
+        height: 104px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-top: 40px;
+    }
+    .foot{
+        line-height: 13px;
+        margin: auto;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 13px;
+        color: #FFFFFF;
+    } 
+    .mapBtn{
+        width: 80px;
+        height: 100%;
+        background: #B25A42;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ECEAE9;
+        border-radius: 0px 5px 5px 0px;
+    }
+    .googlemap{
+        width: 99%;
+        height: 300px;
+        background: url(/static/load.gif);
+        background-position: center;
+    }
+    .chose{
+        display: flex;
+        justify-content: center;
+        background: #B25A42;
+        border-radius: 0px 0px 5px 5px;
+        padding: 5px;
+    }
+    .choseTime{
+        background: #ECEAE9;
+    }
+    .choseText{
+        background: #ECEAE9;
+        border: 0px;
+        margin-left: 2px;
+    }
+    .choseBtn{
+        background: #ECEAE9;
+        width: 50px;
+        text-align: center;
+        height: 21px;
+        line-height: 21px;
+        margin-left: 5px;
+        border-radius: 5px;
+    }
+    .ham{
+        width: 35px;
+        height: 35px;
+        background: url(/static/ham.png);
+        display: none;
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 600px) {
+        .btnPar {
+            width: 300px;
+            flex-direction: column;
+        }
+        .sign_btn{
+            width: 300px;
+            height: 80px;
+            line-height: 80px;
+            margin: 5px 5px 0px 5px;
+        }
+        .heroContent{
+            width: 320px;
+        }
+        .hero {
+            width: 80vw;
+            height: 30vh;
+            padding-top: 45px;
+            margin: 0px auto;
+        }     
+        .ham{
+            display: flex;
+            position: absolute;
+            right: 10px;
+            
+        }  
+        .flex{
+            display: flex;
+            
+        }
+        .headRight{
+            display: none;
+            flex-direction: column;
+            right: 10px;
+            position: absolute;
+            top: 38px;
+            background: white;
+            border: 1px solid;
+            padding: 10px;
+            margin: 8px auto;
+            width: 90px;
+        }
+        .headTitle{
+            left: -20px;
+        }
+        .trip{
+            margin: 0px;
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+        }
+        .signInbtn{
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+        }
+
+
+        .choseText{
+            width:30%;
+        }
+        .card{
+            width: 90vw;
+        }
+        .topBar{
+            height: 100%;
+            /* background: #ECEAE9; */
+            margin: 0px auto 20px auto;
+            width: 90%;
+            flex-wrap: wrap;
+        }
+        .inviteBtn{
+            margin-top: 5px;
+            display: none;
+        }
+        .moreBtn{
+            display: flex;
+            margin-top: 5px;
+        }
+        .saveBtn{
+            margin-top: 5px;
+            margin-right: 10px;
+        }
+        .deleteGroupBtn{
+            position: relative;
+            margin-top: 5px;
+            margin-right: 10px;
+            right: 0px;
+            display: none;
+        }
+        .tableName{
+            text-align: center;
+            width: 100%;
+            margin-top: 5px;
+        }
+        .chatroom{
+            left: 2%;
+            position: absolute;
+            top: 150px;
+            right: 2%;
+            margin: 0px auto;
+            width: 96%;
+        }
+    }
+
+
+</style>
+<body onload="checkMember()">
+    <header>  
+        <div class="headTitle mymouse" onclick="location.href='/'">PlanJoy</div>
+        <div class="ham" onclick="hamclick()"></div>
+        <div class="headRight" id="headRight">
+            <div class="trip mymouse" onclick="location.href='/explore'">探索行程</div>
+            <div class="trip mymouse" onclick="location.href='/'">個人行程</div>
+            <div id="signInbtn" class="signInbtn mymouse" onclick="signinWindow()">會員登入</div>
+            <div id="signOutbtn" class=" signInbtn mymouse display" onclick="signOut()">會員登出</div>
+        </div>
+    </header>
+    <div id="windowBackground" class="display" onclick="closeWindow()">
+    </div>
+    <div id="loading" class="loading"></div>
+    <!-- <div id="loadingBackgroud" class="loadingBackgroud"></div> -->
+    <div  class="sign display" id="signIn">
+        <div class="signHead"></div>
+        <div class="signImg mymouse"  onclick="closeWindow()"></div>
+        <div class="signTitle">登入會員帳號 </div>
+        <input class="signinInput" type="email" id="signinEmail" placeholder="輸入電子信箱">
+        <input class="signinInput" type="password" id="signinPassword" placeholder="輸入密碼">
+        <div class="errorText display" id="signinError" >帳號或密碼輸入錯誤</div>
+        <div class="signButton mymouse" onclick="signIn()" >
+            <div class="signButtonText" >登入帳戶</div>
+        </div>
+        <div class="signinFoot mymouse"  onclick="signupWindow()">還沒有帳戶？點此註冊</div>   
+    </div>
+    
+    <div class="sign display" id="signUp">
+        <div class="signHead"></div>
+        <div class="signImg mymouse"  onclick="closeWindow()"></div>
+        <div class="signTitle">註冊會員帳號 </div>
+        <input class="signupInput" id="signupName" placeholder="輸入姓名">
+        <input class="signupInput" type="email" id="signupEmail" placeholder="輸入電子信箱">
+        <input class="signupInput" type="password" id="signupPassword" placeholder="輸入密碼">
+        <div class="errorText display" id="signupemailError" >此電子信箱已被註冊</div>
+        <div class="errorText display" id="signupspaceError" >欄位為空白或含非法字元</div>
+        <div class="signButton mymouse" onclick="signUp()">
+            <div class="signButtonText" >註冊新帳戶</div>
+        </div>
+        <div class="signupFoot mymouse"  onclick="signinWindow()">已經有帳戶？點此登入</div>   
+    </div>
+
+    <div class="sign display" id="addCard">
+        <div class="signHead"></div>
+        <div class="signImg mymouse"  onclick="closeWindow()"></div>
+        <div class="signTitle">輸入旅程地點及日期</div>
+        <input class="signupInput" id="cardPlace" placeholder="輸入地點(縣市)">
+        <input class="signupInput" type="date" id="cardDate" placeholder="輸入日期">
+        <div class="errorText display" id="signupemailError" >此電子信箱已被註冊</div>
+        <div class="errorText display" id="signupspaceError" >欄位為空白或含非法字元</div>
+        <div class="signButton mymouse" onclick="addCard()">
+            <div class="signButtonText " >新增行程</div>
+        </div> 
+    </div>
+
+    <div class="sign display" id="inviteMember">
+        <div class="signHead"></div>
+        <div class="signImg mymouse"  onclick="closeWindow()"></div>
+        <div class="signTitle">邀請成員</div>
+        <input class="signupInput"  type="email" id="inviteEmail" placeholder="輸入電子信箱">
+        <div class="errorText display"  >欄位為空白或含非法字元</div>
+        <div class="signButton mymouse" onclick="addMember()">
+            <div class="signButtonText " >邀請成員</div>
+        </div> 
+    </div>
+
+    <div class="sign display" id="Member">
+        <div class="signHead"></div>
+        <div class="signImg mymouse"  onclick="closeWindow()"></div>
+        <div class="signTitle">群組成員</div>
+        <!-- <div class="groupMember" id="groupMember">
+            <div class="signImg mymouse"  onclick="deleteMemberWindow(this)"></div>
+            <div class="memberName">名字</div>
+            <div class="memberEmail">test@test.com</div>
+        </div> -->
+    </div>
+    <div class="sign display" id="deleteMember">
+        <div class="signHead"></div>
+        <div class="signImg mymouse"  onclick="closeWindow()"></div>
+        <div class="signTitle">確認刪除此成員觀看權限</div>
+        <div class="remindText" id="deleteMembermail"></div>
+        <div class="signButton mymouse" onclick="deleteMember()">
+            <div class="signButtonText " >是</div>
+        </div> 
+        <div class="signButton mymouse" onclick="closeWindow()">
+            <div class="signButtonText " >否</div>
+        </div> 
+    </div>
+
+    <div class="sign display" id="deleteCard">
+        <div class="signHead"></div>
+        <div class="signImg mymouse"  onclick="closeWindow()"></div>
+        <div class="signTitle">確認是否刪除此欄位</div>
+        <div class="remindText">刪除後將無法復原</div>
+        <div class="signButton mymouse" onclick="deleteSchedule()">
+            <div class="signButtonText " >是</div>
+        </div> 
+        <div class="signButton mymouse" onclick="closeWindow()">
+            <div class="signButtonText " >否</div>
+        </div> 
+    </div>
+
+    <div class="sign display" id="deleteGroup">
+        <div class="signHead"></div>
+        <div class="signImg mymouse"  onclick="closeWindow()"></div>
+        <div class="signTitle">確認是否刪除此看板</div>
+        <div class="remindText">刪除後行程資料將無法復原</div>
+        <div class="signButton mymouse" onclick="deleteGroup()">
+            <div class="signButtonText " >是</div>
+        </div> 
+        <div class="signButton mymouse" onclick="closeWindow()">
+            <div class="signButtonText " >否</div>
+        </div> 
+    </div>
+
+
+
+    <div class="topBar">
+        <input class="tableName" id="groupName" type="text">
+        <div class="moreBtn mymouse" onclick="moreBtn()">查看更多</div>
+        <div class="inviteBtn mymouse" onclick="addCardWindow()">新增行程</div>
+        <div class="inviteBtn mymouse" onclick="memberWindow()">群組成員</div>
+        <div class="inviteBtn mymouse"  onclick="invite()">邀請成員</div>
+        <div class="saveBtn mymouse" onclick="chatroomWindow()">聊天室</div>
+        <div class="saveBtn mymouse" onclick="saveSchedule()">儲存行程</div>
+        <div class="deleteGroupBtn mymouse" onclick="deleteGroupWindow()">刪除看板</div>
+        
+    </div>
+    <div class="center">
+        <div class="centerLeft" id="centerLeft">
+            <!-- <div class="card">
+                <div class="cardTop">
+                    <div class="tripPlace">台南</div>
+                    <div class="tripDate">2021-06-24</div>
+                    <div class="tripWeather">晴朗炎熱</div>
+                </div>
+                <div class="cardBody" id="dayOne">
+                    <div class="schedule">
+                        <div class="scheduleTime">00:00-01:00</div>
+                        <div class="scheduleContent">睡覺</div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+        <div class="chatroom display" id="chatroom">
+            <div class="chatroomTop" >
+                <div>聊天室</div>
+                <div class="chatroomImg mymouse" onclick="chatroomWindow()"></div>
+            </div>
+            <div class="chatroomBody" id="chatroomBody">
+                <!-- <div class="chatCloud">
+                    <div class="chatName">member</div>
+                    <div class="chatContent">你過的好嗎</div>
+                </div> -->
+            </div>
+            <div class="chatroomBottom">
+                <input class="chatroomText" id="chatroomText" type="text">
+                <div class="chatroomSend mymouse" onclick="sendmessage()">送出</div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="foot">
+            COPYRIGHT © 2021 PlanJoy   
+        </div>
+    </footer>
+</body>
+</html>
+<script type="text/javascript">
+function moreBtn(){
+    let inviteBtn=document.getElementsByClassName("inviteBtn")
+    let deleteGroupBtn=document.getElementsByClassName("deleteGroupBtn")
+    console.log(inviteBtn)
+    let n=0
+    if (inviteBtn[0].style.display == "flex") {
+        deleteGroupBtn[0].style.display="none"
+        while(n<inviteBtn.length){
+            inviteBtn[n].style.display="none"
+            n+=1
+        }
+    } else {
+        deleteGroupBtn[0].style.display="flex"
+        while(n<inviteBtn.length){
+            inviteBtn[n].style.display="flex"
+            n+=1
+        }
+    }
+
+    
+}
+
+
+function hamclick(){
+    let headRight=document.getElementById("headRight")
+    // headRight.style.display="flex"
+    if (headRight.style.display == "flex") {
+        headRight.style.display = "none";
+    } else {
+        headRight.style.display = "flex";
+    }
+}
+
+function chatroomWindow(){
+    let chatroom=document.getElementById("chatroom")
+    chatroom.classList.toggle("display")
+}
+
+function addTime(btn){
+    let startTime=btn.parentNode.childNodes[0].value
+    let endTime=btn.parentNode.childNodes[1].value
+    let content=btn.parentNode.childNodes[2].value
+    let scheduleLen=btn.parentNode.parentNode.childNodes[3].childNodes.length
+    console.log(scheduleLen)
+    let thisCardId=btn.parentNode.parentNode.id[5]
+    if(startTime=="未選擇"|endTime=="未選擇"|content==""){
+        alert("請選擇時間及行程")
+    }else if(startTime>=endTime){
+        alert("結束時間需大於開始時間")
+    }else{
+        let Bodydiv=document.getElementsByClassName("cardBody")[thisCardId]
+        let schedulediv=document.createElement("div")
+        let Timediv=document.createElement("div")
+        let Contentdiv=document.createElement("input")
+        let mapBtndiv=document.createElement("div")
+        schedulediv.classList.add("schedule")
+        Timediv.classList.add("scheduleTime")
+        Contentdiv.classList.add("scheduleContent")
+        mapBtndiv.classList.add("mapBtn")
+        mapBtndiv.classList.add("mymouse")
+        mapBtndiv.setAttribute("onclick","maptext(this)")
+        mapBtndiv.textContent="地圖"
+        Contentdiv.setAttribute("type","text")
+        Timediv.textContent=startTime+"-"+endTime
+        Contentdiv.value=content
+        Contentdiv.setAttribute("id","Content_"+thisCardId+"_"+scheduleLen)
+        Bodydiv.appendChild(schedulediv)
+        schedulediv.appendChild(Timediv)
+        schedulediv.appendChild(Contentdiv)
+        schedulediv.appendChild(mapBtndiv)
+    }
+}
+
+function maptext(place){
+    let text=place.parentNode.childNodes[1].value
+
+    if(text!=""){
+        let par=place.parentNode.parentNode.parentNode
+        let mapBar=place.parentNode.parentNode.parentNode.childNodes[1]
+        let child=place.parentNode.parentNode.parentNode.childNodes[1]
+        child.innerHTML=""
+        let bodydiv=place.parentNode.parentNode
+        let googlemapDiv=document.createElement("iframe")
+        googlemapDiv.src="https://www.google.com/maps/embed/v1/place?key=mapAPI&q="+text
+        googlemapDiv.classList.add("googlemap")
+        // par.insertBefore(googlemapDiv,bodydiv)
+        mapBar.appendChild(googlemapDiv)
+    }    
+}
+
+// function onSignIn(googleUser) {
+//     var profile = googleUser.getBasicProfile();
+//     var id_token = googleUser.getAuthResponse().id_token;
+//     var xhr = new XMLHttpRequest();
+//     xhr.open('POST', '/tokensignin');
+//     // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+//     xhr.onload = function() {
+//         let googledata=JSON.parse(this.responseText);
+//         if(googledata["google"]=="GET"){
+//             console.log(googledata["google"])
+//         }else{
+//             // window.location.reload()
+//         }
+//         // window.location.reload()
+//     };
+//     xhr.send(JSON.stringify({"idtoken":id_token,"CLIENT_ID":profile.getId(),"email":profile.getEmail(),"name":profile.getName()}));
+// }
+
+
+
+function deleteGroup(){
+    let groupId=location.pathname.split("/")[2]
+    let deleteGroupreq=new XMLHttpRequest();
+    deleteGroupreq.open("delete","/api/addgroup");
+    deleteGroupreq.onload=function(){
+        Result=JSON.parse(this.responseText);
+        alert(Result["message"])
+        window.location.href='/'
+    }
+    deleteGroupreq.send(JSON.stringify({"groupId":groupId}))
+}
+
+function deleteGroupWindow(){
+    let deleteGroup=document.getElementById("deleteGroup")
+    let windowBackground=document.getElementById("windowBackground")
+    deleteGroup.classList.remove("display")
+    windowBackground.classList.remove("display")
+}
+
+
+function deleteMember(){
+    let loading=document.getElementById("loading")
+    loading.classList.remove("display") 
+    let groupId=location.pathname.split("/")[2]
+    let deleteMemberreq=new XMLHttpRequest();
+    deleteMemberreq.open("delete","/api/inviteMember");
+    deleteMemberreq.onload=function(){
+        Result=JSON.parse(this.responseText);
+        alert(Result["message"])
+        window.location.reload()
+    }
+    deleteMemberreq.send(JSON.stringify({"mail":deletethisMember,"groupId":groupId}))
+}
+function deleteMemberWindow(thisMember){
+    deletethisMember=thisMember.parentNode.childNodes[2].textContent
+    let deleteMember=document.getElementById("deleteMember")
+    let windowBackground=document.getElementById("windowBackground")
+    let Member=document.getElementById("Member")
+    let deleteMembermail=document.getElementById("deleteMembermail")
+    deleteMembermail.textContent=deletethisMember
+    Member.classList.add("display")
+    deleteMember.classList.remove("display")
+    windowBackground.classList.remove("display")
+}
+
+function deleteSchedule(){
+    let scheduleId=deleteObj.childNodes[0].childNodes[0].textContent
+    let groupId=location.pathname.split("/")[2]
+    let deletecardreq=new XMLHttpRequest();
+    let loading=document.getElementById("loading")
+    loading.classList.remove("display") 
+    deletecardreq.open("delete","/api/addcard");
+    deletecardreq.onload=function(){
+        alert("行程已刪除")
+        window.location.reload()
+        loading.classList.add("display") 
+    }
+    deletecardreq.send(JSON.stringify({"scheduleId":scheduleId,"groupId":groupId}))
+}
+
+function deleteScheduleWindow(myObj){
+    deleteObj=myObj.parentNode.parentNode
+    let deleteCard=document.getElementById("deleteCard")
+    let windowBackground=document.getElementById("windowBackground")
+    windowBackground.classList.remove("display")
+    deleteCard.classList.remove("display")
+    // myObj.parentNode.parentNode.innerHTML=""
+}
+
+function addMember(){
+    let inviteEmail=document.getElementById("inviteEmail").value
+    let loading=document.getElementById("loading")
+    loading.classList.remove("display")
+    let groupId=location.pathname.split("/")[2]
+    if (inviteEmail.indexOf("@")>=0){
+        let invitedatareq=new XMLHttpRequest();
+        invitedatareq.open("post","/api/inviteMember");
+        invitedatareq.onload=function(){
+            Result=JSON.parse(this.responseText);
+            alert(Result["message"])
+            window.location.reload()
+        }
+        invitedatareq.send(JSON.stringify({"mail":inviteEmail,"groupId":groupId}))
+ 
+    }else{
+        alert("請輸入電子信箱")
+    }
+}
+
+
+function memberWindow(){
+    let Member=document.getElementById("Member")
+    let windowBackground=document.getElementById("windowBackground")
+    Member.classList.remove("display")
+    windowBackground.classList.remove("display")
+}
+
+function invite(){
+    let inviteMember=document.getElementById("inviteMember")
+    let windowBackground=document.getElementById("windowBackground")
+    inviteMember.classList.remove("display")
+    windowBackground.classList.remove("display")
+}
+
+function saveSchedule(){
+    let loading=document.getElementById("loading")
+    loading.classList.remove("display") 
+    let groupName=document.getElementById("groupName").value
+    let groupId=location.pathname.split("/")[2]
+    let scheduleId=[]
+    let sendData={
+        "email": "test@test.test",
+        "groupName": groupName,
+        "groupId": groupId
+    }
+    let m=0
+    let scheduleLen=document.getElementsByClassName("scheduleId").length
+    while(m<scheduleLen){
+        if(document.getElementById("place_"+m)==null){
+            m+=1
+            scheduleLen+=1
+        }else{
+            let schedule_Id=document.getElementById("id_"+m).textContent
+            let place=document.getElementById("place_"+m).textContent
+            let date=document.getElementById("date_"+m).textContent
+            scheduleId.push(schedule_Id)
+            let scheduleDir={}
+            let scheduleTime=[]
+            scheduleDir["place"]=place
+            scheduleDir["date"]=date
+
+            let n=0
+            let thisCardscheduleLen=document.getElementById("Content_"+m+"_0").parentNode.parentNode.childNodes.length
+            while(n<thisCardscheduleLen){
+                let content=document.getElementById("Content_"+m+"_"+n)
+                console.log(content)
+                let time=content.parentNode.childNodes[0]
+                if(content.value!=""){
+                    scheduleDir[time.textContent]=content.value
+                    scheduleTime.push(time.textContent)
+                    n+=1
+                }else{
+                    n+=1
+                }
+            }
+            scheduleDir["scheduleTime"]=scheduleTime
+            sendData[schedule_Id]=scheduleDir
+            m+=1
+        }
+    }
+    sendData["scheduleId"]=scheduleId
+    let savedatareq=new XMLHttpRequest();
+    savedatareq.open("post","/api"+location.pathname);
+    savedatareq.onload=function(){
+        saveResult=JSON.parse(this.responseText);
+        alert(saveResult["message"])
+        loading.classList.add("display") 
+    }
+    savedatareq.send(JSON.stringify({"data":sendData}))
+}
+
+
+function chatroomData(){
+    let getchatroomreq=new XMLHttpRequest();
+    getchatroomreq.open("get","/api/chatroom/"+location.pathname);
+    getchatroomreq.onload=function(){
+        groupData=JSON.parse(this.responseText);
+        console.log(groupData)
+        chatroomDataLen=groupData["chatroom"].length
+        if (groupData["chatroom"][0][0]!=null){
+            let x=0
+            while(x<chatroomDataLen){
+                // create div
+                let chatroomBody=document.getElementById("chatroomBody")
+                let CloudDiv=document.createElement("div")
+                let NameDiv=document.createElement("div")
+                let ContentDiv=document.createElement("div")
+                // add class
+                CloudDiv.classList.add("chatCloud")
+                NameDiv.classList.add("chatName")
+                ContentDiv.classList.add("chatContent")
+                // add textcontent
+                NameDiv.textContent=groupData["chatroom"][x][0]
+                ContentDiv.textContent=groupData["chatroom"][x][1]
+                // append html
+                chatroomBody.appendChild(CloudDiv)
+                CloudDiv.appendChild(NameDiv)
+                CloudDiv.appendChild(ContentDiv)
+                x+=1
+            }
+        }
+    }
+    getchatroomreq.send()
+}
+
+function groupMember(){
+    let groupMemberreq=new XMLHttpRequest();
+    groupMemberreq.open("get","/api/groupmember/"+location.pathname);
+    groupMemberreq.onload=function(){
+        groupData=JSON.parse(this.responseText);
+        console.log(groupData)
+        let Member=document.getElementById("Member")
+        let memberLen=0
+        while(memberLen<groupData["email"].length){
+            let memberDiv=document.createElement("div")
+            let nameDiv=document.createElement("div")
+            let mailDiv=document.createElement("div")
+            let deleteDiv=document.createElement("div")
+            memberDiv.classList.add("groupMember")
+            nameDiv.classList.add("memberName")
+            mailDiv.classList.add("memberEmail")
+            deleteDiv.classList.add("deleteMemberImg")
+            deleteDiv.classList.add("mymouse")
+            deleteDiv.setAttribute("onclick","deleteMemberWindow(this)")
+            nameDiv.textContent=groupData["member"][groupData["email"][memberLen]]
+            mailDiv.textContent=groupData["email"][memberLen]
+            Member.appendChild(memberDiv)
+            memberDiv.appendChild(deleteDiv)
+            memberDiv.appendChild(nameDiv)
+            memberDiv.appendChild(mailDiv)
+            memberLen+=1
+        }
+    }
+    groupMemberreq.send()
+}
+
+
+let getdatareq=new XMLHttpRequest();
+getdatareq.open("get","/api/"+location.pathname);
+getdatareq.onload=function(){
+    groupData=JSON.parse(this.responseText);
+    console.log(groupData)
+    if(groupData["data"]=="無權限觀看此看板"){
+        alert("無權限觀看此看板")
+        window.location.href='/'
+    }else{
+        // chatroomDataLen=groupData["data"]["chatroomData"].length
+        // if (groupData["data"]["chatroomData"][0][0]!=null){
+        //     let x=0
+        //     while(x<chatroomDataLen){
+        //         // create div
+        //         let chatroomBody=document.getElementById("chatroomBody")
+        //         let CloudDiv=document.createElement("div")
+        //         let NameDiv=document.createElement("div")
+        //         let ContentDiv=document.createElement("div")
+        //         // add class
+        //         CloudDiv.classList.add("chatCloud")
+        //         NameDiv.classList.add("chatName")
+        //         ContentDiv.classList.add("chatContent")
+        //         // add textcontent
+        //         NameDiv.textContent=groupData["data"]["chatroomData"][x][0]
+        //         ContentDiv.textContent=groupData["data"]["chatroomData"][x][1]
+        //         // append html
+        //         chatroomBody.appendChild(CloudDiv)
+        //         CloudDiv.appendChild(NameDiv)
+        //         CloudDiv.appendChild(ContentDiv)
+        //         x+=1
+        //     }
+        // }
+        // member html
+        // let Member=document.getElementById("Member")
+        // let memberLen=0
+        // while(memberLen<groupData["data"]["email"].length){
+        //     let memberDiv=document.createElement("div")
+        //     let nameDiv=document.createElement("div")
+        //     let mailDiv=document.createElement("div")
+        //     let deleteDiv=document.createElement("div")
+        //     memberDiv.classList.add("groupMember")
+        //     nameDiv.classList.add("memberName")
+        //     mailDiv.classList.add("memberEmail")
+        //     deleteDiv.classList.add("deleteMemberImg")
+        //     deleteDiv.classList.add("mymouse")
+        //     deleteDiv.setAttribute("onclick","deleteMemberWindow(this)")
+        //     nameDiv.textContent=groupData["data"]["member"][groupData["data"]["email"][memberLen]]
+        //     mailDiv.textContent=groupData["data"]["email"][memberLen]
+        //     Member.appendChild(memberDiv)
+        //     memberDiv.appendChild(deleteDiv)
+        //     memberDiv.appendChild(nameDiv)
+        //     memberDiv.appendChild(mailDiv)
+        //     memberLen+=1
+        // }
+
+        // 行程html
+        let groupName=document.getElementById("groupName")
+        let centerLeft=document.getElementById("centerLeft")
+        let m=0
+        while(m<groupData["data"]["scheduleId"].length){
+            let scheduleId=groupData["data"]["scheduleId"][m]
+            groupName.value=groupData["data"]["groupName"]
+            let cardPlace=groupData["data"][scheduleId]["place"]
+            let cardDate=groupData["data"][scheduleId]["date"]
+            // create div 
+            let div=document.createElement("div")
+            let Topdiv=document.createElement("div")
+            let Placediv=document.createElement("div")
+            let Datediv=document.createElement("div")
+            let Weatherdiv=document.createElement("div")
+            let Bodydiv=document.createElement("div")
+            let iddiv=document.createElement("div")
+            let deleteBtn=document.createElement("div")
+            let mapBarDiv=document.createElement("div")
+            let choseDiv=document.createElement("div")
+            let choseTime=document.createElement("select")
+            let endTime=document.createElement("select")
+            let choseText=document.createElement("input")
+            let choseBtn=document.createElement("div")
+            choseBtn.setAttribute("onclick","addTime(this)")
+            // 時間下拉選單
+            let chose=document.createElement("option")
+            chose.setAttribute("value","未選擇")
+            choseTime.setAttribute("id","startTime_"+m)
+            chose.textContent="開始時間"
+            choseTime.appendChild(chose)
+            for(let n=0;n<25;n++){
+                let chose=document.createElement("option")
+                if(n<10){
+                    chose.textContent="0"+n+":00"
+                }else{
+                    chose.textContent=n+":00"
+                }
+                chose.setAttribute("value",chose.textContent)
+                choseTime.appendChild(chose)
+            }
+            let endchose=document.createElement("option")
+            endchose.setAttribute("value","未選擇")
+            endTime.setAttribute("id","endTime_"+m)
+            endchose.textContent="結束時間"
+            endTime.appendChild(endchose)
+            for(let n=0;n<25;n++){
+                let chose=document.createElement("option")
+                if(n<10){
+                    chose.textContent="0"+n+":00"
+                }else{
+                    chose.textContent=n+":00"
+                }
+                chose.setAttribute("value",chose.textContent)
+                endTime.appendChild(chose)
+            }
+            
+            // 設定id
+            div.setAttribute("id","card_"+m)
+            Placediv.setAttribute("id","place_"+m)
+            Datediv.setAttribute("id","date_"+m)
+            iddiv.setAttribute("id","id_"+m)
+            deleteBtn.setAttribute("id","delete_"+m)
+            Weatherdiv.setAttribute("id","weather_"+m)
+            deleteBtn.setAttribute("onclick","deleteScheduleWindow(this)")
+            mapBarDiv.setAttribute("id","mapBar_"+m)
+            choseText.setAttribute("type","text")
+
+            // dom 文字更改
+            Placediv.textContent=cardPlace
+            Datediv.textContent=cardDate
+            iddiv.textContent=scheduleId
+            choseBtn.textContent="送出"
+
+            // add class
+            div.classList.add("card")
+            Topdiv.classList.add("cardTop")
+            Placediv.classList.add("tripPlace")
+            Datediv.classList.add("tripDate")
+            Bodydiv.classList.add("cardBody")
+            iddiv.classList.add("scheduleId")
+            deleteBtn.classList.add("deleteBtn")
+            deleteBtn.classList.add("mymouse")
+            mapBarDiv.classList.add("mapBar")
+            choseDiv.classList.add("chose")
+            choseTime.classList.add("choseTime")
+            endTime.classList.add("choseTime")
+            choseText.classList.add("choseText")
+            choseBtn.classList.add("choseBtn")
+            choseBtn.classList.add("mymouse")
+            // html
+            centerLeft.appendChild(div)
+            div.appendChild(Topdiv)
+            div.appendChild(mapBarDiv)
+            div.appendChild(choseDiv)
+            choseDiv.appendChild(choseTime)
+            choseDiv.appendChild(endTime)
+            choseDiv.appendChild(choseText)
+            choseDiv.appendChild(choseBtn)
+            div.appendChild(Bodydiv)
+            Topdiv.appendChild(iddiv)
+            Topdiv.appendChild(Placediv)
+            Topdiv.appendChild(Datediv)
+            Weatherdiv.textContent=groupData["data"][scheduleId]["weather"]
+            Weatherdiv.classList.add("tripWeather")
+            Topdiv.appendChild(Weatherdiv)
+            Topdiv.appendChild(deleteBtn)
+
+            // 行程
+            let scheduleLen=groupData["data"][scheduleId]["scheduleTime"]
+            let scheduleTime=groupData["data"][scheduleId]["scheduleTime"].sort()
+            // let scheduleTime=groupData["data"][scheduleId]["scheduleTime"]
+            let n=0
+            while(n<scheduleLen.length){
+                let schedulediv=document.createElement("div")
+                let Timediv=document.createElement("div")
+                let Contentdiv=document.createElement("input")
+                let mapBtndiv=document.createElement("div")
+                schedulediv.classList.add("schedule")
+                Timediv.classList.add("scheduleTime")
+                Contentdiv.classList.add("scheduleContent")
+                mapBtndiv.classList.add("mapBtn")
+                mapBtndiv.classList.add("mymouse")
+                mapBtndiv.setAttribute("onclick","maptext(this)")
+                mapBtndiv.textContent="地圖"
+                Contentdiv.setAttribute("type","text")
+                Timediv.textContent=scheduleTime[n]
+                Contentdiv.value=groupData["data"][scheduleId][scheduleTime[n]]
+                Contentdiv.setAttribute("id","Content_"+m+"_"+n)
+                Bodydiv.appendChild(schedulediv)
+                schedulediv.appendChild(Timediv)
+                schedulediv.appendChild(Contentdiv)
+                schedulediv.appendChild(mapBtndiv)
+                schedulediv.appendChild(mapBtndiv)
+                n+=1
+                // if(groupData["data"][scheduleId][n]!=null){
+                //     if(n<=8){
+                //         Timediv.textContent=groupData["data"][scheduleId]["scheduleTime"][n]
+                //         console.log(groupData["data"][scheduleId]["scheduleTime"][n])
+                //         Contentdiv.value=groupData["data"][scheduleId][["scheduleTime"][n]]
+                //         Contentdiv.setAttribute("id","Content_"+m+"_"+n)
+                //         Bodydiv.appendChild(schedulediv)
+                //         schedulediv.appendChild(Timediv)
+                //         schedulediv.appendChild(Contentdiv)
+                //         schedulediv.appendChild(mapBtndiv)
+                //         n+=1
+                //     }else if(n==9){
+                //         Timediv.textContent="0"+n+":00-"+(n+1)+":00"
+                //         Contentdiv.value=groupData["data"][scheduleId][n]
+                //         Contentdiv.setAttribute("id","Content_"+m+"_"+n)
+                //         Bodydiv.appendChild(schedulediv)
+                //         schedulediv.appendChild(Timediv)
+                //         schedulediv.appendChild(Contentdiv)
+                //         schedulediv.appendChild(mapBtndiv)
+                //         n+=1
+                //     }else if(n==23){
+                //         Timediv.textContent=n+":00-00:00"
+                //         Contentdiv.value=groupData["data"][scheduleId][n]
+                //         Contentdiv.setAttribute("id","Content_"+m+"_"+n)
+                //         Bodydiv.appendChild(schedulediv)
+                //         schedulediv.appendChild(Timediv)
+                //         schedulediv.appendChild(Contentdiv)
+                //         schedulediv.appendChild(mapBtndiv)
+                //         n+=1
+                //     }else{
+                //         Timediv.textContent=n+":00-"+(n+1)+":00"
+                //         Contentdiv.value=groupData["data"][scheduleId][n]
+                //         Contentdiv.setAttribute("id","Content_"+m+"_"+n)
+                //         Bodydiv.appendChild(schedulediv)
+                //         schedulediv.appendChild(Timediv)
+                //         schedulediv.appendChild(Contentdiv)
+                //         schedulediv.appendChild(mapBtndiv)
+                //         n+=1
+                //     }
+                // }else{
+                //     if(n<=8){
+                        // Timediv.textContent=groupData["data"][scheduleId]["scheduleTime"][n]
+                        // Contentdiv.value=groupData["data"][scheduleId][groupData["data"][scheduleId]["scheduleTime"][n]]
+                        // Contentdiv.setAttribute("id","Content_"+m+"_"+n)
+                        // Bodydiv.appendChild(schedulediv)
+                        // schedulediv.appendChild(Timediv)
+                        // schedulediv.appendChild(Contentdiv)
+                        // schedulediv.appendChild(mapBtndiv)
+                        // schedulediv.appendChild(mapBtndiv)
+                        // n+=1
+                //     }else if(n==9){
+                //         Timediv.textContent="0"+n+":00-"+(n+1)+":00"
+                //         Contentdiv.setAttribute("id","Content_"+m+"_"+n)
+                //         Bodydiv.appendChild(schedulediv)
+                //         schedulediv.appendChild(Timediv)
+                //         schedulediv.appendChild(Contentdiv)
+                //         schedulediv.appendChild(mapBtndiv)
+                //         n+=1
+                //     }else if(n==23){
+                //         Timediv.textContent=n+":00-00:00"
+                //         Contentdiv.setAttribute("id","Content_"+m+"_"+n)
+                //         Bodydiv.appendChild(schedulediv)
+                //         schedulediv.appendChild(Timediv)
+                //         schedulediv.appendChild(Contentdiv)
+                //         schedulediv.appendChild(mapBtndiv)
+                //         n+=1
+                //     }else{
+                //         Timediv.textContent=n+":00-"+(n+1)+":00"
+                //         Contentdiv.setAttribute("id","Content_"+m+"_"+n)
+                //         Bodydiv.appendChild(schedulediv)
+                //         schedulediv.appendChild(Timediv)
+                //         schedulediv.appendChild(Contentdiv)
+                //         schedulediv.appendChild(mapBtndiv)
+                //         n+=1
+                //     }
+                // }
+            }
+            m+=1
+        }
+    }
+
+    let loading=document.getElementById("loading")
+    loading.classList.add("display") 
+    chatroomData()
+    groupMember()
+    let weatherData={}
+    let n=0
+    console.log(groupData["data"]["scheduleId"].length)
+    while (n<groupData["data"]["scheduleId"].length){
+
+        let scheduleData={}
+        scheduleData["date"]=groupData["data"][groupData["data"]["scheduleId"][n]]["date"]
+        scheduleData["place"]=groupData["data"][groupData["data"]["scheduleId"][n]]["place"]
+        weatherData[n]=scheduleData
+        n+=1
+    }
+    // 天氣資訊
+    let getweatherreq=new XMLHttpRequest();
+    getweatherreq.open("post","/api/weather");
+    getweatherreq.onload=function(){
+        let weatherdata=JSON.parse(this.responseText);
+        let n=0
+        while(n<Object.keys(weatherdata["data"]).length){
+            let weatherId=document.getElementById("weather_"+n)
+            weatherId.textContent=weatherdata["data"][n]["weather"]
+            n+=1
+        }
+    }
+    getweatherreq.send(JSON.stringify({"data":weatherData}))
+}
+getdatareq.send()
+
+
+function schedule(){
+    let n=0
+    while(n<=23){
+        let dayOne=document.getElementById("dayOne")
+        let schedulediv=document.createElement("div")
+        let Timediv=document.createElement("div")
+        let Contentdiv=document.createElement("input")
+        schedulediv.classList.add("schedule")
+        Timediv.classList.add("scheduleTime")
+        Contentdiv.classList.add("scheduleContent")
+        Contentdiv.setAttribute("type","text")
+        if(n<=8){
+            Timediv.textContent="0"+n+":00-0"+(n+1)+":00"
+            Contentdiv.textContent="456"
+            dayOne.appendChild(schedulediv)
+            schedulediv.appendChild(Timediv)
+            schedulediv.appendChild(Contentdiv)
+            n+=1
+        }else if(n==9){
+            Timediv.textContent="0"+n+":00-"+(n+1)+":00"
+            Contentdiv.textContent="456"
+            dayOne.appendChild(schedulediv)
+            schedulediv.appendChild(Timediv)
+            schedulediv.appendChild(Contentdiv)
+            n+=1
+        }else if(n==23){
+            Timediv.textContent=n+":00-00:00"
+            Contentdiv.textContent="456"
+            dayOne.appendChild(schedulediv)
+            schedulediv.appendChild(Timediv)
+            schedulediv.appendChild(Contentdiv)
+            n+=1
+        }else{
+            Timediv.textContent=n+":00-"+(n+1)+":00"
+            Contentdiv.textContent="456"
+            dayOne.appendChild(schedulediv)
+            schedulediv.appendChild(Timediv)
+            schedulediv.appendChild(Contentdiv)
+            n+=1
+        }
+    }
+}
+// schedule()
+
+function addCard(){
+    let loading=document.getElementById("loading")
+    loading.classList.remove("display")
+    let centerLeft=document.getElementById("centerLeft")
+    let cardPlace=document.getElementById("cardPlace").value
+    let cardDate=document.getElementById("cardDate").value
+    let groupId=location.pathname.split("/")[2]
+
+    let addcardreq=new XMLHttpRequest();
+    addcardreq.open("post","/api/addcard");
+    addcardreq.onload=function(){
+        window.location.reload()
+    }
+    addcardreq.send(JSON.stringify({"place":cardPlace,"date":cardDate,"groupId":groupId}))
+
+
+ 
+}
+
+function addCardWindow(){
+    let addCard=document.getElementById("addCard")
+    let windowBackground=document.getElementById("windowBackground")
+    addCard.classList.remove("display");
+    windowBackground.classList.remove("display");
+}
+
+//確認使用者登入狀態 
+function checkMember(){
+        let reqMember=new XMLHttpRequest();
+        reqMember.open("get","/api/schedule/user")
+        reqMember.onload=function(){
+            let getdata=JSON.parse(this.responseText);
+            console.log("getdata")
+            console.log(getdata)
+            let signInbtn=document.getElementById("signInbtn")
+            let signOutbtn=document.getElementById("signOutbtn")
+            if(getdata["data"]!=null){
+                signInbtn.classList.add("display")
+                signOutbtn.classList.remove("display")
+                // headsignin.style.display="none"
+
+            }else{
+                alert("您無權觀看此群組")
+                window.location.href='/'
+                signInbtn.classList.remove("display")
+                signOutbtn.classList.add("display")
+                // headsignout.style.display="none"
+
+            }
+        }
+        reqMember.send()
+}
+
+//登出
+function signOut(){
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+    console.log('User signed out.');
+    });
+
+    let reqsignOut=new XMLHttpRequest()
+    reqsignOut.open("delete","/api/user")
+    reqsignOut.onload=function(){
+        let signInbtn=document.getElementById("signInbtn")
+        let signOutbtn=document.getElementById("signOutbtn")
+        window.location.reload()
+        signInbtn.classList.remove("display")
+        signOutbtn.classList.add("display")
+        
+    }
+    reqsignOut.send()
+}    
+// 登入
+function signIn(){
+    let signineMail=document.getElementById("signinEmail").value
+    let signinPassword=document.getElementById("signinPassword").value
+    let signinError=document.getElementById("signinError")
+    if(signineMail==""|signinPassword==""){
+        signinError.classList.remove("display")
+    }else{
+        let reqsignIn=new XMLHttpRequest()
+        reqsignIn.open("post","/api/user")
+        reqsignIn.onload=function(){
+            signindata=JSON.parse(this.responseText);
+            if (signindata["ok"]==true){
+                window.location.reload()
+            }else{
+                signinError.classList.remove("display")
+                console.log(signindata)
+            }
+            
+        }
+        reqsignIn.send(JSON.stringify({"email":signineMail,"password":signinPassword}))
+    }
+}  
+//註冊
+function signUp(){
+    let signupName=document.getElementById("signupName").value
+    let signupMail=document.getElementById("signupEmail").value
+    let signupPassword=document.getElementById("signupPassword").value
+    let signupemailError=document.getElementById("signupemailError")
+    let signupspaceError=document.getElementById("signupspaceError")
+    // 判斷input是否空白
+    if(signupName==""| signupMail==""| signupPassword==""){
+        signupspaceError.classList.remove("display")
+    }else{
+        // 連接註冊API
+        let reqsignUp=new XMLHttpRequest();
+        reqsignUp.open("post","/api/user")
+        reqsignUp.onload=function(){
+            signupdata=JSON.parse(this.responseText);
+            if(signupdata["ok"]==true){
+                //註冊成功則自動登入
+                let reqsignIn=new XMLHttpRequest()
+                reqsignIn.open("post","/api/user")
+                reqsignIn.onload=function(){
+                    signindata=JSON.parse(this.responseText);
+                    if (signindata["ok"]==true){
+                        window.location.reload()
+                    }else{
+                        let signinError=document.getElementById("signinError")
+                        signinError.classList.remove("display")
+                    }
+                    
+                }
+                reqsignIn.send(JSON.stringify({"email":signupMail,"password":signupPassword}))
+            }else{
+                // 註冊失敗顯示原因
+                signupspaceError.classList.add("display")
+                signupemailError.classList.remove("display")
+            }
+        }
+        reqsignUp.send(JSON.stringify({"name":signupName,"email":signupMail,"password":signupPassword}))
+
+    }
+}
+
+// 登入視窗
+function signinWindow(){
+    let signIn=document.getElementById("signIn");
+    let signUp=document.getElementById("signUp");
+    let windowBackground=document.getElementById("windowBackground")
+    let signinError=document.getElementById("signinError")
+    let signupspaceError=document.getElementById("signupspaceError")
+    let signupemailError=document.getElementById("signupemailError")
+    windowBackground.classList.remove("display");
+    signUp.classList.add("display");
+    signIn.classList.remove("display");
+    // 隱藏錯誤訊息
+    signinError.classList.add("display");
+    signupspaceError.classList.add("display");
+    signupemailError.classList.add("display");
+}
+function signupWindow(){
+    let signIn=document.getElementById("signIn");
+    let signUp=document.getElementById("signUp");
+    let signupspaceError=document.getElementById("signupspaceError")
+    let signupemailError=document.getElementById("signupemailError")
+    windowBackground.classList.remove("display");
+    signUp.classList.remove("display");
+    signIn.classList.add("display");
+    // 隱藏錯誤訊息
+    signinError.classList.add("display");
+    signupspaceError.classList.add("display");
+    signupemailError.classList.add("display");
+}
+function closeWindow(){
+    let signIn=document.getElementById("signIn");
+    let signUp=document.getElementById("signUp");
+    let addCard=document.getElementById("addCard")
+    let signupspaceError=document.getElementById("signupspaceError")
+    let signupemailError=document.getElementById("signupemailError")
+    let inviteMember=document.getElementById("inviteMember")
+    let Member=document.getElementById("Member")
+    let deleteCard=document.getElementById("deleteCard")
+    let deleteMember=document.getElementById("deleteMember")
+    let deleteGroup=document.getElementById("deleteGroup")
+    windowBackground.classList.add("display");
+    signUp.classList.add("display");
+    signIn.classList.add("display");
+    addCard.classList.add("display");
+    inviteMember.classList.add("display")
+    Member.classList.add("display")
+    deleteCard.classList.add("display")
+    deleteMember.classList.add("display")
+    deleteGroup.classList.add("display")
+    // 隱藏錯誤訊息
+    signupspaceError.classList.add("display");
+    signupemailError.classList.add("display");
+}
+
+
+let socket = io();
+function sendmessage(){
+    let chatroomText=document.getElementById("chatroomText").value
+    let socket = io.connect();
+    socket.on('connect',function(){
+        let groupId=location.pathname.split("/")[2]
+        socket.emit('my send',{"content":chatroomText,"groupId":groupId})
+        document.getElementById("chatroomText").value=null
+    })
+}
+
+
+
+socket.on("my change",function(msg){
+    console.log(msg)
+    // create div
+    let chatroomBody=document.getElementById("chatroomBody")
+    let CloudDiv=document.createElement("div")
+    let NameDiv=document.createElement("div")
+    let ContentDiv=document.createElement("div")
+    // add class
+    CloudDiv.classList.add("chatCloud")
+    NameDiv.classList.add("chatName")
+    ContentDiv.classList.add("chatContent")
+    // add textcontent
+    NameDiv.textContent=msg["member"]
+    ContentDiv.textContent=msg["content"]
+    // append html
+    chatroomBody.appendChild(CloudDiv)
+    CloudDiv.appendChild(NameDiv)
+    CloudDiv.appendChild(ContentDiv)
+})
+
+</script>
