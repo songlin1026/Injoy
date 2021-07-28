@@ -3,6 +3,7 @@
 It is website for user to plan the schedule of travel
 You can plan the schedule and chat with your friends at the same time
 ```
+![image](https://github.com/songlin1026/member/blob/main/PlanJoy-Demo.png)
 # Technologies
 * AWS - EC2(Linux)、RDS
 * Python - Flask
