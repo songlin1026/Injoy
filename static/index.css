@@ -1,0 +1,335 @@
+.display{
+    display: none;
+}
+.mymouse{
+    cursor: pointer;
+}
+.loading{
+    width: 100vw;
+    height: 100vh;
+    background: url(/static/load.gif);
+    background-color: #E5E1DD;
+    background-position: center;
+    background-size: 10%;
+    background-repeat: no-repeat;
+    position: fixed;
+    z-index: 8;
+}
+#windowBackground{
+    width: 100vw;
+    background-color: black;
+    opacity: 0.25;
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+    margin: 0px 0px 0px 0px ;
+}
+.g_id_signin{
+    width: 270px;
+    height: 27px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sign{
+    /* display: none; */
+    position: fixed;
+    z-index: 100;
+    background-color: #E5E1DD;
+    width: 340px;
+    /* height: 275px; */
+    height: auto;
+    top: 80px;
+    left: 50%;
+    transform:translate(-50%, 0);
+    border-radius: 5px;
+}
+.errorText {
+    color: red;
+    text-align: center;
+    width: 270px;
+    margin: 5px auto;
+}
+
+.signHead{
+    border-radius: 5px 5px 0px 0px;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(270deg, #CAAD8D 0%, #824533 100%);
+}
+
+
+.signImg{
+    background: url(/static/icon_close.png);
+    height: 16px;
+    width: 16px;
+    position: fixed;
+    top: 27px;
+    right: 17px;
+}
+.signinInput{
+    width: 280px;
+    height: 17px;
+    border: 1px #CCCCCC solid;
+    color: #666666;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 5px;
+    margin: 5px 15px;
+    text-align: left;
+}
+
+.signinFoot{
+    width: 310px;
+    height: 22px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #666666;
+    margin: 5px 15px 15px 15px;
+    text-align: center;
+}
+
+/* signup */
+
+.signTitle{
+    margin: 0px auto 0px auto;
+    width: 310px;
+    height: 27px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+    color: #666666;
+    margin: 15px auto 10px auto;
+    text-align: center;
+
+}
+
+.signupInput{
+    width: 280px;
+    height: 17px;
+    border: 1px #CCCCCC solid;
+    color: #666666;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 5px;
+    margin: 5px 15px;
+    text-align: left;
+}
+.signButton{
+    width: 270px;
+    height: 27px;
+    background: #824533;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px auto;
+}
+.signButtonText{
+    width: 270px;
+    height: 27px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 700;
+    color: #ffffff;
+}
+.signupFoot{
+    width: 310px;
+    height: 22px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #666666;
+    margin: 5px 15px 15px 15px;
+    text-align: center;
+}
+
+header{
+    background: #E4DDD4;
+    height: 35px;
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    padding:5px 0px 5px 0px;
+    border-bottom: 1px solid #B25A42;
+    z-index: 9;
+
+}
+.headTitle{
+    color: #824533 ;
+    font-weight:700;
+    font-size: 30px;
+    margin:0px auto 0px auto;
+    display: flex;
+    justify-content: center;
+}
+.headRight{
+    color: #824533;
+    display: flex;
+    margin: 8px 10px 0px 0px ;
+    font-size:16px;
+    position: absolute;
+    right: 50px;
+    font-weight: 700;
+}
+
+.trip{
+    margin-right: 10px;
+}
+
+body{
+    margin: 0px;
+    font-size: 14px;
+    background:#E4DDD4 ;
+}
+
+footer{
+    background: #757575;
+    height: 104px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 40px;
+    position: absolute;
+    bottom: 0px;
+}
+.foot{
+    line-height: 13px;
+    margin: auto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 13px;
+    color: #FFFFFF;
+
+} 
+
+/* index */
+.hero{
+    width: 100vw;
+    height: 60vh;
+    padding-top: 45px;
+}
+.heroTitle{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.heroContent{
+    color: #824533;
+    font-weight:700;
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+.btnPar{
+    display: flex;
+    width: 70%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+.sign_btn{
+    height: 100px;
+    line-height:100px;
+    background-color: #B25A42;
+    color: #E5E1DD;
+    font-weight: 700;
+    border-radius: 5px;
+    font-size: 24px;
+    padding: 0px 10px 0px 10px;
+    margin: 0px 5px 0px 5px;
+    width: 15%;
+    text-align: center;
+}
+.new_btn{
+    height: 80px;
+    width: 80px;
+    line-height: 80px;
+    background-color: #B25A42;
+    color: #E5E1DD;
+    font-weight: 700;
+    border-radius: 80px;
+    font-size: 70px;
+    text-align: center;
+    margin: 0px 5px 0px 5px;
+}
+.scheduleId{
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+.ham{
+    width: 35px;
+    height: 35px;
+    background: url(/static/ham.png);
+    display: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    .btnPar {
+        width: 300px;
+        flex-direction: column;
+    }
+    .sign_btn{
+        width: 300px;
+        height: 80px;
+        line-height: 80px;
+        margin: 5px 5px 0px 5px;
+    }
+    .heroContent{
+        width: 320px;
+    }
+    .hero {
+        width: 80vw;
+        height: 30vh;
+        padding-top: 45px;
+        margin: 0px auto;
+    }     
+    .ham{
+        display: flex;
+        position: absolute;
+        right: 10px;
+        
+    }  
+    .flex{
+        display: flex;
+        
+    }
+    .headRight{
+        display: none;
+        flex-direction: column;
+        right: 10px;
+        position: absolute;
+        top: 38px;
+        background: white;
+        border: 1px solid;
+        padding: 10px;
+        margin: 8px auto;
+        width: 90px;
+    }
+    .headTitle{
+        left: -20px;
+    }
+    .trip{
+        margin: 0px;
+        text-align: center;
+        height: 30px;
+        line-height: 30px;
+    }
+    .signInbtn{
+        text-align: center;
+        height: 30px;
+        line-height: 30px;
+    }
+
+}

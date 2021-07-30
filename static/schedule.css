@@ -1,0 +1,666 @@
+.display{
+    display: none;
+}
+.mymouse{
+    cursor: pointer;
+}
+.loading{
+    width: 100vw;
+    height: 100vh;
+    background: url(/static/load.gif);
+    background-color: #E5E1DD;
+    background-position: center;
+    background-size: 10%;
+    background-repeat: no-repeat;
+    position: fixed;
+    z-index: 8;
+}
+#windowBackground{
+    width: 100vw;
+    background-color: black;
+    opacity: 0.25;
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+    margin: 0px 0px 0px 0px ;
+}
+.g_id_signin{
+    width: 270px;
+    height: 27px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sign{
+    position: fixed;
+    z-index: 100;
+    background-color: #E5E1DD;
+    width: 340px;
+    height: auto;
+    top: 80px;
+    left: 50%;
+    transform:translate(-50%, 0);
+    border-radius: 5px;
+}
+
+.signHead{
+    border-radius: 5px 5px 0px 0px;
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(270deg, #CAAD8D 0%, #824533 100%);
+}
+
+
+.signImg{
+    background: url(/static/icon_close.png);
+    height: 16px;
+    width: 16px;
+    position: fixed;
+    top: 27px;
+    right: 17px;
+}
+.signinInput{
+    width: 280px;
+    height: 17px;
+    border: 1px #CCCCCC solid;
+    color: #666666;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 5px;
+    margin: 5px 15px;
+    text-align: left;
+}
+
+.signinFoot{
+    width: 310px;
+    height: 22px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #666666;
+    margin: 5px 15px 15px 15px;
+    text-align: center;
+}
+
+/* signup */
+
+.signTitle{
+    margin: 0px auto 0px auto;
+    width: 310px;
+    height: 27px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+    color: #666666;
+    margin: 15px auto 10px auto;
+    text-align: center;
+
+}
+
+.signupInput{
+    width: 280px;
+    height: 17px;
+    border: 1px #CCCCCC solid;
+    color: #666666;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 5px;
+    margin: 5px 15px;
+    text-align: left;
+}
+.signButton{
+    width: 270px;
+    height: 27px;
+    background: #824533;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px auto;
+}
+.signButtonText{
+    width: 270px;
+    height: 27px;
+    text-align: center;
+    font-size: 19px;
+    font-weight: 700;
+    color: #ffffff;
+}
+.signupFoot{
+    width: 310px;
+    height: 22px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #666666;
+    margin: 5px 15px 15px 15px;
+    text-align: center;
+}
+
+header{
+    background: #E4DDD4;
+    height: 35px;
+    width: 100vw;
+    position: fixed;
+    display: flex;
+    padding:5px 0px 5px 0px;
+    border-bottom: 1px solid #B25A42;
+    z-index: 9;
+
+}
+.headTitle{
+    color: #824533 ;
+    font-weight:700;
+    font-size: 30px;
+    margin:0px auto 0px auto;
+    display: flex;
+    justify-content: center;
+}
+.headRight{
+    color: #824533;
+    display: flex;
+    margin: 8px 10px 0px 0px ;
+    font-size:16px;
+    position: absolute;
+    right: 50px;
+    font-weight: 700;
+}
+.trip{
+    margin-right: 10px;
+}
+
+body{
+    margin: 0px;
+    font-size: 14px;
+    background:#E4DDD4 ;
+}
+
+
+.deleteMemberImg{
+    background: url(/static/icon_close.png);
+    background-size: 100%;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.groupMember{
+    position: relative;
+    width: 280px;
+    border: 1px #CCCCCC solid;
+    color: #666666;
+    padding: 15px;
+    font-weight: 400;
+    border-radius: 5px;
+    margin: 5px 15px 10px 15px;
+    text-align: left;
+    background: #ECEAE9;
+}
+
+.memberName{
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+.memberEmail{
+    font-size: 16px;
+}
+
+
+
+
+/* schedule */
+.topBar{
+    padding: 65px 0px 0px 10px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+.center{
+    display: flex;
+    height: 80vh;
+}
+.tableName{
+    font-size: 18px;
+    margin-right: 10px;
+    background: #B25A42;
+    color: #E5E1DD;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    border: 0px;
+}
+.tableDate{
+    margin-right: 10px;
+    background: #B25A42;
+    color: #E5E1DD;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+}
+.tableMember{
+    background: #B25A42;
+    color: #E5E1DD;
+    font-weight: 700;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+}
+.inviteBtn{
+    background: #B25A42;
+    color: #E5E1DD;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    width: 56px;
+    justify-content: center;
+
+}
+.moreBtn{
+    background: #B25A42;
+    color: #E5E1DD;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    height: 32px;
+    display: none;
+    align-items: center;
+    margin-right: 10px;
+    width: 56px;
+    justify-content: center;
+}
+.saveBtn{
+    background: #B25A42;
+    color: #E5E1DD;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    width: 56px;
+    justify-content: center;
+}
+.deleteGroupBtn{
+    position: absolute;
+    right: 50px;
+    background: #B25A42;
+    color: #E5E1DD;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+}
+.chatroomBtn{
+    position: absolute;
+    right: 0px;
+    background: #B25A42;
+    color: #E5E1DD;
+    font-weight: 700;
+    border-radius: 5px;
+    padding: 2px 5px 2px 5px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+}
+
+.schedule{
+    display: flex;
+    align-items: center;
+    border:1px solid #E4DDD4;
+    border-radius: 5px;
+    height: 50px;
+    background-color: #ECEAE9;
+
+}
+.scheduleTime{
+    width: 150px;
+    margin-left: 10px;
+}
+.scheduleContent{
+    width: 100%;
+    height: 93%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border: 0px;
+    background-color: #ECEAE9;
+}
+.centerLeft{
+    display: flex;
+    flex-wrap: wrap;
+}
+.card{
+    margin-left: 10px;
+}
+.cardTop{
+    position: relative;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    background: #ECEAE9;
+    border-top: 5px solid #B25A42;
+    border-radius: 5px 5px 0px 0px;
+    justify-content: center;
+}
+.cardBody{
+    margin-top: 5px;
+}
+.deleteBtn{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    background: url(/static/icon_delete.png);
+}
+
+.scheduleId{
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+.tripDate{
+    font-size: 20px;
+    width: 100%;
+    top:15px;
+    display: flex;
+    justify-content: center;
+}
+.tripPlace{
+    font-size: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.tripWeather{
+    font-size: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    top:30px
+}
+.remindText{
+    width: 280px;
+    height: 47px;
+    color: #666666;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 5px;
+    margin: 5px auto;
+    text-align: center;
+    line-height: 47px;
+
+}
+.chatroom{
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-left: auto;
+    margin-right: 50px;
+    height: 80vh;
+    background: #ECEAE9;
+}
+.chatroomImg{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: url(/static/icon_close.png);
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+.chatroomTop{
+    height: 45px;
+    line-height: 45px;
+    font-size: 20px;
+    background-color: #B25A42;
+    text-align: center;
+    color: #E5E1DD;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+}
+.chatroomBody{
+    height: 68vh;
+    background: #ECEAE9;
+    padding-top: 10px;
+    overflow: scroll;
+}
+.chatroomBottom{
+    height: 20px;
+    display: flex;
+    padding: 0px 0px 0px 5px;
+}
+.chatCloud{
+    width: 60%;
+    margin: 10px 0px 0px 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 5px 0px 5px 5px;
+}
+.chatName{
+    height: 12px;
+    line-height: 12px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.chatContent{
+    width: 100%;
+}
+
+.chatroomText{
+    width: 80%;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.chatroomSend{
+    width: 40px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #B25A42;
+    margin-top: 10px;
+
+}
+footer{
+    background: #757575;
+    height: 104px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 40px;
+}
+.foot{
+    line-height: 13px;
+    margin: auto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 13px;
+    color: #FFFFFF;
+} 
+.mapBtn{
+    width: 80px;
+    height: 100%;
+    background: #B25A42;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ECEAE9;
+    border-radius: 0px 5px 5px 0px;
+}
+.googlemap{
+    width: 99%;
+    height: 300px;
+    background: url(/static/load.gif);
+    background-position: center;
+}
+.chose{
+    display: flex;
+    justify-content: center;
+    background: #B25A42;
+    border-radius: 0px 0px 5px 5px;
+    padding: 5px;
+}
+.choseTime{
+    background: #ECEAE9;
+}
+.choseText{
+    background: #ECEAE9;
+    border: 0px;
+    margin-left: 2px;
+}
+.choseBtn{
+    background: #ECEAE9;
+    width: 50px;
+    text-align: center;
+    height: 21px;
+    line-height: 21px;
+    margin-left: 5px;
+    border-radius: 5px;
+}
+.ham{
+    width: 35px;
+    height: 35px;
+    background: url(/static/ham.png);
+    display: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    .btnPar {
+        width: 300px;
+        flex-direction: column;
+    }
+    .sign_btn{
+        width: 300px;
+        height: 80px;
+        line-height: 80px;
+        margin: 5px 5px 0px 5px;
+    }
+    .heroContent{
+        width: 320px;
+    }
+    .hero {
+        width: 80vw;
+        height: 30vh;
+        padding-top: 45px;
+        margin: 0px auto;
+    }     
+    .ham{
+        display: flex;
+        position: absolute;
+        right: 10px;
+        
+    }  
+    .flex{
+        display: flex;
+        
+    }
+    .headRight{
+        display: none;
+        flex-direction: column;
+        right: 10px;
+        position: absolute;
+        top: 38px;
+        background: white;
+        border: 1px solid;
+        padding: 10px;
+        margin: 8px auto;
+        width: 90px;
+    }
+    .headTitle{
+        left: -20px;
+    }
+    .trip{
+        margin: 0px;
+        text-align: center;
+        height: 30px;
+        line-height: 30px;
+    }
+    .signInbtn{
+        text-align: center;
+        height: 30px;
+        line-height: 30px;
+    }
+
+
+    .choseText{
+        width:30%;
+    }
+    .card{
+        width: 90vw;
+    }
+    .topBar{
+        height: 100%;
+        margin: 0px auto 20px auto;
+        width: 90%;
+        flex-wrap: wrap;
+    }
+    .inviteBtn{
+        margin-top: 5px;
+        display: none;
+    }
+    .moreBtn{
+        display: flex;
+        margin-top: 5px;
+    }
+    .saveBtn{
+        margin-top: 5px;
+        margin-right: 10px;
+    }
+    .deleteGroupBtn{
+        position: relative;
+        margin-top: 5px;
+        margin-right: 10px;
+        right: 0px;
+        display: none;
+    }
+    .tableName{
+        text-align: center;
+        width: 100%;
+        margin-top: 5px;
+    }
+    .chatroom{
+        left: 2%;
+        position: absolute;
+        top: 150px;
+        right: 2%;
+        margin: 0px auto;
+        width: 96%;
+    }
+}

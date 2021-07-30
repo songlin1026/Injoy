@@ -26,7 +26,7 @@ connect_pool=pooling.MySQLConnectionPool(
 	pool_size=10,
 	pool_reset_session=True,
 	host=os.getenv('MYSQL_DB_HOST'),
-    # port=os.getenv('MYSQL_PORT'),
+    port=os.getenv('MYSQL_PORT'),
 	database=os.getenv('MYSQL_DB_NAME'),
 	user=os.getenv('MYSQL_USER'),
 	password=os.getenv('MYSQL_PASSWORD')
@@ -709,14 +709,4 @@ def handle_my_custom_event(json):
     finally:
         connection.close()
 
-
-
-
-
-
-
-# socketio.run(app, port=3000,host='0.0.0.0',debug=True)
 socketio.run(app, port=3000,debug=True)
-
-# socketio.run(app, port=3001,debug=True)
-# app.run(port=3000,host='0.0.0.0')
