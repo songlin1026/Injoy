@@ -3,7 +3,7 @@
 It is website for user to plan the schedule of travel
 You can plan the schedule and chat with your friends at the same time
 ```
-![image](https://github.com/songlin1026/member/blob/main/PlanJoy-Demo.png)
+![image](https://github.com/songlin1026/member/blob/main/planjoyDemo/index.png)
 # Technologies
 * AWS - EC2(Linux)、RDS
 * Python - Flask
@@ -23,8 +23,13 @@ https://planjoy.site
 * Password : test
 
 # Feature
-* Chat with friends real-time
-* Member management
-* Crawl the articles from KKday
-* Display weather with Government Weather API
-* Display information of the schedule in Google map
+* Chat with friends real-time  
+![image](https://github.com/songlin1026/member/blob/main/planjoyDemo/chatroom.png)
+* Member management  
+![image](https://github.com/songlin1026/member/blob/main/planjoyDemo/member.png)
+* Crawl the articles from KKday  
+![image](https://github.com/songlin1026/member/blob/main/planjoyDemo/crawl.png)
+* Display weather with Government Weather API  
+![image](https://github.com/songlin1026/member/blob/main/planjoyDemo/weather.png)
+* Display information of the schedule in Google map  
+![image](https://github.com/songlin1026/member/blob/main/planjoyDemo/map.png)
