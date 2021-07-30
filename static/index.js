@@ -6,7 +6,6 @@ function hamclick(){
         headRight.style.display = "flex";
     }
 }
-
 function handleCredentialResponse(response) {
     let sub=response.credential
     var xhr = new XMLHttpRequest();
@@ -14,15 +13,12 @@ function handleCredentialResponse(response) {
     xhr.onload = function() {
         let googledata=JSON.parse(this.responseText);
         if(googledata["google"]=="GET"){
-            console.log(googledata["google"])
         }else{
             window.location.reload()
         }
     };
     xhr.send(JSON.stringify({"idtoken":sub}));
 }
-
-
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
     var id_token = googleUser.getAuthResponse().id_token;
@@ -31,15 +27,12 @@ function onSignIn(googleUser) {
     xhr.onload = function() {
         let googledata=JSON.parse(this.responseText);
         if(googledata["google"]=="GET"){
-            console.log(googledata["google"])
         }else{
             window.location.reload()
         }
     };
     xhr.send(JSON.stringify({"idtoken":id_token,"CLIENT_ID":profile.getId(),"email":profile.getEmail(),"name":profile.getName()}));
 }
-
-
 function choseGroup(thisCard){
     let groupId=thisCard.childNodes[1].textContent
     document.location.href="/schedule/"+groupId
@@ -53,15 +46,12 @@ function addGroup(){
     }
     addGroupreq.send()
 }
-
-
 //確認使用者登入狀態 
 function checkMember(){
         let reqMember=new XMLHttpRequest();
         reqMember.open("get","/api/user")
         reqMember.onload=function(){
             let getdata=JSON.parse(this.responseText);
-            console.log(getdata)
             let signInbtn=document.getElementById("signInbtn")
             let signOutbtn=document.getElementById("signOutbtn")
             let newGroup=document.getElementById("newGroup")
@@ -90,20 +80,13 @@ function checkMember(){
                         div.appendChild(iddiv)
                         n+=1
                     }
-
-
- 
                 }
-  
             }
             let loading=document.getElementById("loading")
             loading.classList.add("display") 
         }
         reqMember.send()
 }
-
-
-
 //登出
 function signOut(){
     let reqsignOut=new XMLHttpRequest()
@@ -134,7 +117,6 @@ function signIn(){
                 window.location.reload()
             }else{
                 signinError.classList.remove("display")
-                console.log(signindata)
             }
             
         }
@@ -182,8 +164,6 @@ function signUp(){
 
     }
 }
-
-
 // 登入視窗
 function signinWindow(){
     let signIn=document.getElementById("signIn");

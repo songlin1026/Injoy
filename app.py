@@ -23,7 +23,7 @@ load_dotenv(find_dotenv())
 #mysql.connector
 connect_pool=pooling.MySQLConnectionPool(
 	pool_name="injoy_pool",
-	pool_size=10,
+	pool_size=15,
 	pool_reset_session=True,
 	host=os.getenv('MYSQL_DB_HOST'),
     port=os.getenv('MYSQL_PORT'),
@@ -60,7 +60,6 @@ from google.auth.transport import requests
 @app.route("/explore",methods=["POST"])
 def explore():
     token=json.loads(request.data.decode('utf-8'))
-    print(token)
     url="https://blog.kkday.com/category/asia/taiwan/"+token["city"]+"/page/"+str(token["page"])
     kkdayRequest=urllib.request.Request(url,headers={
         "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
@@ -136,9 +135,6 @@ def googleSignin():
 
 
 
-
-
-
 @app.route("/api/inviteMember",methods=["POST","DELETE"])
 def inviteMemberAPI():
     try:
@@ -177,8 +173,6 @@ def inviteMemberAPI():
             return {"message":"request方式出錯"}
     except:
         return {"message":"伺服器發生問題"}
-    # finally:
-    #     connection.close()
 
 
 @app.route("/api/addgroup",methods=["POST","DELETE"])
@@ -216,8 +210,6 @@ def addgroupAPI():
             {"message":"系統發生錯誤"}
     except:
         return {"message":"伺服器發生問題"}
-    # finally:
-    #     connection.close()
 
 
 
@@ -328,7 +320,7 @@ def weather():
                 locationId=None                       
         elif cardMonth-TodayMonth==1:
             if 0<=cardDay-TodayDay+31<7:
-                cardPlace=weatherData["data"][n]["place"]
+                cardPlace=weatherData["data"][str(n)]["place"]
                 access_token=weatherAPI(cardPlace,cardDate)  
                 weather=access_token.json()["records"]["locations"][0]["location"][0]["weatherElement"][0]["time"][0]["elementValue"][0]["value"]
                 weatherData["data"][str(n)]["weather"]=weather       
@@ -388,16 +380,15 @@ def scheduleAPI(scheduleId):
                 connection=connect_pool.get_connection()
                 cursor=connection.cursor()
                 # 抓取schedule-place、date、time+content
-                cursor.execute("SELECT injoy.group.groupName,injoy.trip.groupId,injoy.trip.place,injoy.trip.date,injoy.trip.scheduleId,injoy.schedule.time,injoy.schedule.content FROM injoy.trip LEFT JOIN injoy.group ON injoy.trip.groupId=injoy.group.groupId LEFT JOIN injoy.schedule ON injoy.trip.scheduleId=injoy.schedule.scheduleId WHERE injoy.trip.groupId=%s ORDER BY injoy.trip.date",[scheduleId])
+                cursor.execute("SELECT injoy.group.groupName,injoy.group.groupId,injoy.trip.place,injoy.trip.date,injoy.trip.scheduleId,injoy.schedule.time,injoy.schedule.content FROM injoy.group LEFT JOIN injoy.trip ON injoy.group.groupId=injoy.trip.groupId LEFT JOIN injoy.schedule ON injoy.trip.scheduleId=injoy.schedule.scheduleId WHERE injoy.group.groupId=%s ORDER BY injoy.trip.date",[scheduleId])
                 tripData=cursor.fetchall()
             finally:
                 connection.close()
-            print(tripData)
             if tripData!=[]:
                 databaseNumber=len(tripData)
                 dataDict={}
                 # 判斷是否有schedule-place、date、time+content
-                if tripData!=None:
+                if tripData[0][2]!=None:
                     n=0
                     schedule={}
                     scheduleId=[]
@@ -405,13 +396,9 @@ def scheduleAPI(scheduleId):
                     schedule_id=tripData[0][4]
                     # 回傳資料整理
                     dataDict={
-                        # "id":int(groupData[0][0]),
                         "groupId":tripData[0][1],
                         "groupName":tripData[0][0],
-                        # "email":group_email,
                         "scheduleId":scheduleId
-                        # "member":group_memberData,
-                        # "chatroomData":chatroomData
                     } 
                     # 將 schedule 放入字典
                     while n<len(tripData):
@@ -442,7 +429,6 @@ def scheduleAPI(scheduleId):
                                     schedule["place"]=tripData[n][2]
                                 dataDict[tripData[n][4]]=schedule
                                 dataDict[tripData[n][4]]["scheduleTime"]=scheduleTime
-                                print(dataDict)
                                 n+=1
                         # 此筆資料與前筆資料scheduleId不同
                         else:
@@ -475,10 +461,9 @@ def scheduleAPI(scheduleId):
                 else:
                     # 無schedule-place、date、time+content 直接回傳group 資料
                     dataDict={
-                            "id":int(groupData[0][0]),
-                            "groupId":groupData[0][1],
-                            "groupName":groupData[0][2],
-                            "email":groupData[0][3]
+                            "groupId":tripData[0][1],
+                            "groupName":tripData[0][0],
+                            "scheduleId":[]
                         } 
                     return {"data":dataDict}	
             else:
@@ -486,7 +471,6 @@ def scheduleAPI(scheduleId):
         elif request.method=="POST":
             # 儲存群組資料
             saveData=json.loads(request.data.decode('utf-8'))
-            print(saveData)
             m=0
             try:
                 connection=connect_pool.get_connection()
@@ -560,8 +544,7 @@ def scheduleAPI(scheduleId):
             return{"error": True,"message": "伺服器發生錯誤"}
     except:
         return {"message":"伺服器發生問題"}
-    # finally:
-    #     connection.close()
+
 @app.route("/api/schedule/user",methods=["GET"])
 def scheduleUser():
     if session.get("member")!="":
@@ -657,9 +640,7 @@ def user():
                     connection.close()
                 groupData={}
                 groupId=[]
-                print(memberData)
                 if memberData==[]:
-                    # session["member"]=""
                     return{"data":None}	
                 # 判斷是否有看板資料
                 else:
@@ -683,8 +664,7 @@ def user():
             return {"error":True,"message":"error"}
     except:
         return {"message":"伺服器發生問題"}
-    # finally:
-    #     connection.close()
+
 
 @socketio.on('connect')
 def handle_message(json):

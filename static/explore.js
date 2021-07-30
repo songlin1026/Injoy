@@ -220,7 +220,6 @@ function signUp(){
 
     }
 }
-
 // 登入視窗
 function signinWindow(){
     let signIn=document.getElementById("signIn");

@@ -15,11 +15,7 @@ function moreBtn(){
             n+=1
         }
     }
-
-    
 }
-
-
 function hamclick(){
     let headRight=document.getElementById("headRight")
     if (headRight.style.display == "flex") {
@@ -28,12 +24,10 @@ function hamclick(){
         headRight.style.display = "flex";
     }
 }
-
 function chatroomWindow(){
     let chatroom=document.getElementById("chatroom")
     chatroom.classList.toggle("display")
 }
-
 function addTime(btn){
     let startTime=btn.parentNode.childNodes[0].value
     let endTime=btn.parentNode.childNodes[1].value
@@ -67,10 +61,8 @@ function addTime(btn){
         schedulediv.appendChild(mapBtndiv)
     }
 }
-
 function maptext(place){
     let text=place.parentNode.childNodes[1].value
-
     if(text!=""){
         let par=place.parentNode.parentNode.parentNode
         let mapBar=place.parentNode.parentNode.parentNode.childNodes[1]
@@ -78,12 +70,11 @@ function maptext(place){
         child.innerHTML=""
         let bodydiv=place.parentNode.parentNode
         let googlemapDiv=document.createElement("iframe")
-        googlemapDiv.src="https://www.google.com/maps/embed/v1/place?key=="+text
+        googlemapDiv.src="https://www.google.com/maps/embed/v1/place?key=&q="+text
         googlemapDiv.classList.add("googlemap")
         mapBar.appendChild(googlemapDiv)
     }    
 }
-
 function deleteGroup(){
     let groupId=location.pathname.split("/")[2]
     let deleteGroupreq=new XMLHttpRequest();
@@ -95,15 +86,12 @@ function deleteGroup(){
     }
     deleteGroupreq.send(JSON.stringify({"groupId":groupId}))
 }
-
 function deleteGroupWindow(){
     let deleteGroup=document.getElementById("deleteGroup")
     let windowBackground=document.getElementById("windowBackground")
     deleteGroup.classList.remove("display")
     windowBackground.classList.remove("display")
 }
-
-
 function deleteMember(){
     let loading=document.getElementById("loading")
     loading.classList.remove("display") 
@@ -128,7 +116,6 @@ function deleteMemberWindow(thisMember){
     deleteMember.classList.remove("display")
     windowBackground.classList.remove("display")
 }
-
 function deleteSchedule(){
     let scheduleId=deleteObj.childNodes[0].childNodes[0].textContent
     let groupId=location.pathname.split("/")[2]
@@ -143,7 +130,6 @@ function deleteSchedule(){
     }
     deletecardreq.send(JSON.stringify({"scheduleId":scheduleId,"groupId":groupId}))
 }
-
 function deleteScheduleWindow(myObj){
     deleteObj=myObj.parentNode.parentNode
     let deleteCard=document.getElementById("deleteCard")
@@ -151,7 +137,6 @@ function deleteScheduleWindow(myObj){
     windowBackground.classList.remove("display")
     deleteCard.classList.remove("display")
 }
-
 function addMember(){
     let inviteEmail=document.getElementById("inviteEmail").value
     let loading=document.getElementById("loading")
@@ -166,27 +151,22 @@ function addMember(){
             window.location.reload()
         }
         invitedatareq.send(JSON.stringify({"mail":inviteEmail,"groupId":groupId}))
- 
     }else{
         alert("請輸入電子信箱")
     }
 }
-
-
 function memberWindow(){
     let Member=document.getElementById("Member")
     let windowBackground=document.getElementById("windowBackground")
     Member.classList.remove("display")
     windowBackground.classList.remove("display")
 }
-
 function invite(){
     let inviteMember=document.getElementById("inviteMember")
     let windowBackground=document.getElementById("windowBackground")
     inviteMember.classList.remove("display")
     windowBackground.classList.remove("display")
 }
-
 function saveSchedule(){
     let loading=document.getElementById("loading")
     loading.classList.remove("display") 
@@ -242,8 +222,6 @@ function saveSchedule(){
     }
     savedatareq.send(JSON.stringify({"data":sendData}))
 }
-
-
 function chatroomData(){
     let getchatroomreq=new XMLHttpRequest();
     getchatroomreq.open("get","/api/chatroom/"+location.pathname);
@@ -275,7 +253,6 @@ function chatroomData(){
     }
     getchatroomreq.send()
 }
-
 function groupMember(){
     let groupMemberreq=new XMLHttpRequest();
     groupMemberreq.open("get","/api/groupmember/"+location.pathname);
@@ -305,8 +282,6 @@ function groupMember(){
     }
     groupMemberreq.send()
 }
-
-
 let getdatareq=new XMLHttpRequest();
 getdatareq.open("get","/api/"+location.pathname);
 getdatareq.onload=function(){
@@ -318,10 +293,10 @@ getdatareq.onload=function(){
         // 行程html
         let groupName=document.getElementById("groupName")
         let centerLeft=document.getElementById("centerLeft")
+        groupName.value=groupData["data"]["groupName"]
         let m=0
         while(m<groupData["data"]["scheduleId"].length){
             let scheduleId=groupData["data"]["scheduleId"][m]
-            groupName.value=groupData["data"]["groupName"]
             let cardPlace=groupData["data"][scheduleId]["place"]
             let cardDate=groupData["data"][scheduleId]["date"]
             // create div 
@@ -371,7 +346,6 @@ getdatareq.onload=function(){
                 chose.setAttribute("value",chose.textContent)
                 endTime.appendChild(chose)
             }
-            
             // 設定id
             div.setAttribute("id","card_"+m)
             Placediv.setAttribute("id","place_"+m)
@@ -382,13 +356,11 @@ getdatareq.onload=function(){
             deleteBtn.setAttribute("onclick","deleteScheduleWindow(this)")
             mapBarDiv.setAttribute("id","mapBar_"+m)
             choseText.setAttribute("type","text")
-
             // dom 文字更改
             Placediv.textContent=cardPlace
             Datediv.textContent=cardDate
             iddiv.textContent=scheduleId
             choseBtn.textContent="送出"
-
             // add class
             div.classList.add("card")
             Topdiv.classList.add("cardTop")
@@ -422,7 +394,6 @@ getdatareq.onload=function(){
             Weatherdiv.classList.add("tripWeather")
             Topdiv.appendChild(Weatherdiv)
             Topdiv.appendChild(deleteBtn)
-
             // 行程
             let scheduleLen=groupData["data"][scheduleId]["scheduleTime"]
             let scheduleTime=groupData["data"][scheduleId]["scheduleTime"].sort()
@@ -453,7 +424,6 @@ getdatareq.onload=function(){
             m+=1
         }
     }
-
     let loading=document.getElementById("loading")
     loading.classList.add("display") 
     chatroomData()
@@ -461,7 +431,6 @@ getdatareq.onload=function(){
     let weatherData={}
     let n=0
     while (n<groupData["data"]["scheduleId"].length){
-
         let scheduleData={}
         scheduleData["date"]=groupData["data"][groupData["data"]["scheduleId"][n]]["date"]
         scheduleData["place"]=groupData["data"][groupData["data"]["scheduleId"][n]]["place"]
@@ -483,8 +452,6 @@ getdatareq.onload=function(){
     getweatherreq.send(JSON.stringify({"data":weatherData}))
 }
 getdatareq.send()
-
-
 function schedule(){
     let n=0
     while(n<=23){
@@ -534,25 +501,19 @@ function addCard(){
     let cardPlace=document.getElementById("cardPlace").value
     let cardDate=document.getElementById("cardDate").value
     let groupId=location.pathname.split("/")[2]
-
     let addcardreq=new XMLHttpRequest();
     addcardreq.open("post","/api/addcard");
     addcardreq.onload=function(){
         window.location.reload()
     }
-    addcardreq.send(JSON.stringify({"place":cardPlace,"date":cardDate,"groupId":groupId}))
-
-
- 
+    addcardreq.send(JSON.stringify({"place":cardPlace,"date":cardDate,"groupId":groupId})) 
 }
-
 function addCardWindow(){
     let addCard=document.getElementById("addCard")
     let windowBackground=document.getElementById("windowBackground")
     addCard.classList.remove("display");
     windowBackground.classList.remove("display");
 }
-
 //確認使用者登入狀態 
 function checkMember(){
         let reqMember=new XMLHttpRequest();
@@ -573,14 +534,12 @@ function checkMember(){
         }
         reqMember.send()
 }
-
 //登出
 function signOut(){
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
     console.log('User signed out.');
     });
-
     let reqsignOut=new XMLHttpRequest()
     reqsignOut.open("delete","/api/user")
     reqsignOut.onload=function(){
@@ -589,7 +548,6 @@ function signOut(){
         window.location.reload()
         signInbtn.classList.remove("display")
         signOutbtn.classList.add("display")
-        
     }
     reqsignOut.send()
 }    
@@ -656,7 +614,6 @@ function signUp(){
 
     }
 }
-
 // 登入視窗
 function signinWindow(){
     let signIn=document.getElementById("signIn");
@@ -710,8 +667,6 @@ function closeWindow(){
     signupspaceError.classList.add("display");
     signupemailError.classList.add("display");
 }
-
-
 let socket = io();
 function sendmessage(){
     let chatroomText=document.getElementById("chatroomText").value
@@ -722,9 +677,6 @@ function sendmessage(){
         document.getElementById("chatroomText").value=null
     })
 }
-
-
-
 socket.on("my change",function(msg){
     // create div
     let chatroomBody=document.getElementById("chatroomBody")
