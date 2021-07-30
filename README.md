@@ -1,6 +1,6 @@
 # Planjoy
 ```
-It is website for user to plan the schedule of travel
+It is a website for users to plan the schedule of travel
 You can plan the schedule and chat with your friends at the same time
 ```
 ![image](https://github.com/songlin1026/member/blob/main/planjoyDemo/index.png)
