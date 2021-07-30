@@ -78,7 +78,7 @@ function maptext(place){
         child.innerHTML=""
         let bodydiv=place.parentNode.parentNode
         let googlemapDiv=document.createElement("iframe")
-        googlemapDiv.src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBNcfVaqd1lZVOYcKnriraVgBc0lv-o8eU&q="+text
+        googlemapDiv.src="https://www.google.com/maps/embed/v1/place?key=="+text
         googlemapDiv.classList.add("googlemap")
         mapBar.appendChild(googlemapDiv)
     }    
