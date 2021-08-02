@@ -9,7 +9,7 @@ You can plan the schedule and chat with your friends at the same time
 * Python - Flask
 * MySQL build on RDS
 * Web Crawler 
-* Websocket
+* Socket.IO
 * Google API - Third-party sign in、Google Map
 * Open Government Weather API
 * HTML
@@ -23,7 +23,7 @@ https://planjoy.site
 * Password : test
 
 # Feature
-* Chat with friends real-time  
+* Chat with friends real-time (Socket.IO)  
 ![image](https://github.com/songlin1026/member/blob/main/planjoyDemo/chatroom.png)
 * Member management  
 ![image](https://github.com/songlin1026/member/blob/main/planjoyDemo/member.png)
