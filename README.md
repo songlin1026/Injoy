@@ -5,17 +5,17 @@ You can plan the schedule and chat with your friends at the same time
 ```
 ![image](https://github.com/songlin1026/member/blob/main/planjoyDemo/index.png)
 # Technologies
-* AWS - EC2(Linux)、RDS
-* Python - Flask
-* MySQL build on RDS
-* Web Crawler 
-* Socket.IO
-* Google API - Third-party sign in、Google Map
-* Open Government Weather API
-* HTML
-* CSS
-* JavaScript
-* Responsive Web Design 
+* 使用 Python Flask 作為後端框架。
+* 將網站部署至 EC2 ，並用 Nginx 進行反向代理。
+* 運用 AWS RDS ( MySQL ) 服務，作為資料庫。
+* 藉由 Open Government API 收集天氣資訊。
+* 串接 Google Map API 提供使用者地圖資訊。
+* 使用 Google Login API 讓使用者方便、快速登入
+* 爬取 Kkday 文章資料，顯示於網頁。
+* 使用 Socket.IO 達到即時聊天功能。
+* 以 HTML / CSS  設計 RWD 頁面。
+* 使用 JavaScript 達到 AJAX 及 前端功能開發。
+
 
 # Demo
 https://planjoy.site
